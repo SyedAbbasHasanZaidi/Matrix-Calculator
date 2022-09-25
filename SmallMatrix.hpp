@@ -13,7 +13,7 @@
 namespace mtrn2500 {
 
 class SmallMatrix {
-  public:
+public:
     /**
      * @brief A constructor which initialises an empty matrix with no rows and no columns.
      */
@@ -352,7 +352,7 @@ class SmallMatrix {
      */
     friend std::ostream& operator<<(std::ostream& os, SmallMatrix const& sm);
 
-  private:
+private:
     int mNumRows;
     int mNumCols;
     bool mIsLargeMatrix;
@@ -364,4 +364,4 @@ class SmallMatrix {
 // Forward declaring.
 SmallMatrix transpose(SmallMatrix const&);
 
-} // namespace mtrn2500
+}  // namespace mtrn2500

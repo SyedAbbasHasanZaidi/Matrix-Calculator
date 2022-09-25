@@ -48,7 +48,7 @@ auto operator<<(std::ostream& os, std::pair<U, V> const& p) -> std::ostream& {
     return os;
 }
 
-} // namespace std
+}  // namespace std
 
 #include "SmallMatrix.hpp"
 
@@ -1648,7 +1648,7 @@ TEST_CASE("std::vector<double const*> row(int) const") {
         CHECK_THROWS_AS(m.row(5), std::out_of_range);
     }
 
-    REQUIRE(actual.size() == expected.size()); // Doesn't continue the subcase if it fails.
+    REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
     for (int i = 0; i < actual.size(); i++) {
         CHECK(*actual[i] == doctest::Approx(expected[i]));
     }
@@ -1937,7 +1937,7 @@ TEST_CASE("std::vector<double const*> col(int) const") {
         CHECK_THROWS_AS(m.col(29), std::out_of_range);
     }
 
-    REQUIRE(actual.size() == expected.size()); // Doesn't continue the subcase if it fails.
+    REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
     for (int i = 0; i < actual.size(); i++) {
         CHECK(*actual[i] == doctest::Approx(expected[i]));
     }
@@ -3445,7 +3445,6 @@ TEST_CASE("friend bool operator!=(SmallMatrix const&, SmallMatrix const&)" *
 }
 
 TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)") {
-
     auto m1 = mtrn2500::SmallMatrix();
     auto m2 = mtrn2500::SmallMatrix();
     auto e = mtrn2500::SmallMatrix();
@@ -3664,7 +3663,6 @@ TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)"
 }
 
 TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)") {
-
     auto m1 = mtrn2500::SmallMatrix();
     auto m2 = mtrn2500::SmallMatrix();
     auto e = mtrn2500::SmallMatrix();
@@ -4937,7 +4935,6 @@ TEST_CASE("friend SmallMatrix transpose(SmallMatrix const&)") {
 }
 
 TEST_CASE("friend std::ostream& operator<<(std::ostream&, SmallMatrix const&)") {
-
     auto m = mtrn2500::SmallMatrix();
     auto s = std::string();
 
