@@ -36,7 +36,7 @@ public:
      * @param numCols Number of columns to initialise with.
      * @param value Value to initialise all matrix elements with.
      */
-    SmallMatrix(int numRows, int numCols, double const& value);
+    SmallMatrix(int numRows, int numCols, double value);
 
     /**
      * @brief A constructor which initialises a matrix with a given initialiser list of initialiser
@@ -281,7 +281,7 @@ public:
      * @param sm SmallMatrix.
      * @return SmallMatrix
      */
-    friend SmallMatrix operator*(double const& s, SmallMatrix const& sm);
+    friend SmallMatrix operator*(double s, SmallMatrix const& sm);
 
     /**
      * @brief Returns the matrix result of the scalar multiplication of the the specified scalar
@@ -291,7 +291,7 @@ public:
      * @param s Scalar value.
      * @return SmallMatrix
      */
-    friend SmallMatrix operator*(SmallMatrix const& sm, double const& s);
+    friend SmallMatrix operator*(SmallMatrix const& sm, double s);
 
     /**
      * @brief Returns *this after the element-wise addition of *this and the specified matrix. This
@@ -333,7 +333,7 @@ public:
      * @param s Scalar value.
      * @return SmallMatrix&
      */
-    SmallMatrix& operator*=(double const& s);
+    SmallMatrix& operator*=(double s);
 
     /**
      * @brief Returns the result of the tranpose on the specified matrix.

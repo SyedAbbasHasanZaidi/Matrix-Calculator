@@ -4,6 +4,8 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/09/27`: Changed all references of `double const&` to `double`.
+
 ## 2 Learning Outcomes
 
 The purpose of this assignment is to consolidate the C++ concepts taught in weeks 1, 2, 3, and 4. The main learning outcomes are:
@@ -76,7 +78,7 @@ The specification for `SmallMatrix` is summarised below:
         <td>None</td>
     </tr>
     <tr>
-        <td><code>SmallMatrix(int, int, double const&)</code></td>
+        <td><code>SmallMatrix(int, int, double)</code></td>
         <td>A constructor which intialises a matrix whose elements are all initialised with the given value, and has the dimensions given by <code>mNumRows</code> and <code>mNumCols</code>. </td>
         <td><pre><code>SmallMatrix m(7, 4, 42.2);</code></pre></td>
         <td>None</td>
@@ -264,14 +266,14 @@ auto r = m1 * m2;</pre></code></td>
         <td>Throws <code>invalid_argument</code> if the number of columns on the left-hand side is not equal to the number of rows on the right-hand side.</td>
     </tr>
     <tr>
-        <td><code>friend SmallMatrix operator*(double const&, SmallMatrix const&)</code></td>
+        <td><code>friend SmallMatrix operator*(double, SmallMatrix const&)</code></td>
         <td>Returns the matrix result of the scalar multiplication of the the specified scalar value and specified matrix.</td>
         <td><pre><code>SmallMatrix m({{1, 2}, {3, 4}, {5, 6}});
 auto r = 42.2 * m;</pre></code></td>
         <td>None.</td>
     </tr>
     <tr>
-        <td><code>friend SmallMatrix operator*(SmallMatrix const&, double const&)</code></td>
+        <td><code>friend SmallMatrix operator*(SmallMatrix const&, double)</code></td>
         <td>Returns the matrix result of the scalar multiplication of the the specified scalar value and specified matrix.</td>
         <td><pre><code>SmallMatrix m({{1, 2}, {3, 4}, {5, 6}});
 auto r = m * 42.2;</pre></code></td>
@@ -523,7 +525,7 @@ The assignment is worth 22% of the total course mark.
             <ul>
                 <li><code>SmallMatrix()</code></li>
                 <li><code>SmallMatrix(int, int)</code></li>
-                <li><code>SmallMatrix(int, int, double const&)</code></li>
+                <li><code>SmallMatrix(int, int, double)</code></li>
                 <li><s><code>SmallMatrix(std::initializer_list&lt;std::initializer_list&lt;double&gt;&gt; const&)</code></s>GIVEN</li>
                 <li><code>SmallMatrix(SmallMatrix const&)</code></li>
                 <li><code>SmallMatrix(SmallMatrix&&)</code></li>
