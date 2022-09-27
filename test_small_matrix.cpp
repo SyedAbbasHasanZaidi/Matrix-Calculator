@@ -1649,7 +1649,7 @@ TEST_CASE("std::vector<double const*> row(int) const") {
     }
 
     REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
-    for (int i = 0; i < actual.size(); i++) {
+    for (unsigned i = 0; i < actual.size(); i++) {
         CHECK(*actual[i] == doctest::Approx(expected[i]));
     }
 }
@@ -1938,7 +1938,7 @@ TEST_CASE("std::vector<double const*> col(int) const") {
     }
 
     REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
-    for (int i = 0; i < actual.size(); i++) {
+    for (unsigned i = 0; i < actual.size(); i++) {
         CHECK(*actual[i] == doctest::Approx(expected[i]));
     }
 }

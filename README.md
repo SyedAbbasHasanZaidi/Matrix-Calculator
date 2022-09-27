@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/09/27`: Fixed comparison of `int` and `unsigned` for `gcc` compiler.
 - `2022/09/27`: Changed all references of `double const&` to `double`.
 
 ## 2 Learning Outcomes
