@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/09/28`: Fix link to style guide and remove friend function style requirement.
 - `2022/09/27`: Fixed comparison of `int` and `unsigned` for `gcc` compiler.
 - `2022/09/27`: Changed all references of `double const&` to `double`.
 
@@ -512,7 +513,7 @@ The assignment is worth 22% of the total course mark.
     <tr>
         <td>C++ Style</td>
         <td>35%</td>
-        <td>There will be marks for using C++ style such as using STL algorithms, avoiding C-style code, defining friend functions in headers, invalidating resources after move, etc.</td>
+        <td>There will be marks for using C++ style such as using STL algorithms, avoiding C-style code, invalidating resources after move, etc.</td>
     </tr>
     <tr>
         <td>General Style</td>
@@ -543,7 +544,7 @@ The assignment is worth 22% of the total course mark.
     </tr>
 </table>
 
-Please refer to the [style guide](./style_guide.md) for a more complete set of programming practices of what to do and not to do.
+Please refer to the [style guide](https://gitlab.com/dennuguyen/mtrn2500-2022t3/-/blob/master/style-guide.md) for a more complete set of programming practices of what to do and not to do.
 
 **MacOS**: Please check that your solution compiles with at least `x86-64 gcc 5.1` and `-std=c++14` on [godbolt.org](https://godbolt.org/). This is to ensure that your solution will compile with our backend.
 
