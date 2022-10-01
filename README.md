@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/01`: Link online testing environment.
 - `2022/10/01`: Fix `eraseRow` and `eraseCol` subcases.
 - `2022/10/01`: Clarify expected format for `operator<<()`.
 - `2022/10/01`: Define `SmallMatrix` methods with dummy return values in `SmallMatrix.cpp`.
@@ -576,7 +577,7 @@ The assignment is worth 22% of the total course mark.
 
 Please refer to the [style guide](https://gitlab.com/dennuguyen/mtrn2500-2022t3/-/blob/master/style-guide.md) for a more complete set of programming practices of what to do and not to do.
 
-**MacOS**: Please check that your solution compiles with at least `x86-64 gcc 5.1` and `-std=c++14` on [godbolt.org](https://godbolt.org/). This is to ensure that your solution will compile with our backend.
+**MacOS**: Please check that your solution compiles with at least `x86-64 gcc 5.1` and `-std=c++14` on [godbolt.org](https://godbolt.org/z/hPrns63dK). This is to ensure that your solution will compile with our backend.
 
 ## 9 Submission
 
