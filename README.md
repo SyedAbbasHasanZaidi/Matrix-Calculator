@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/01`: Define `SmallMatrix` methods with dummy return values in `SmallMatrix.cpp`.
 - `2022/09/28`: Fix link to style guide and remove friend function style requirement.
 - `2022/09/27`: Fixed comparison of `int` and `unsigned` for `gcc` compiler.
 - `2022/09/27`: Changed all references of `double const&` to `double`.
