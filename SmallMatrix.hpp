@@ -5,8 +5,10 @@
  */
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <iostream>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
