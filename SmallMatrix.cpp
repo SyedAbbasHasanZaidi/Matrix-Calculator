@@ -25,7 +25,7 @@ SmallMatrix::SmallMatrix(std::initializer_list<std::initializer_list<double>> co
     int row_index{0};
     for (auto const& row : il) {
         if (mIsLargeMatrix) {
-            mHeapData.at(row_index).reserve(mNumCols);
+            mHeapData.at(row_index).resize(mNumCols);
             std::copy(row.begin(), row.end(), mHeapData.at(row_index).begin());
         } else {
             std::transform(row.begin(), row.end(), mStackData.at(row_index).begin(),

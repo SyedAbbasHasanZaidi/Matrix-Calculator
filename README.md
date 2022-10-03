@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/03`: Fix 2D initialiser list constructor where it used `reserve` instead of `resize.
 - `2022/10/03`: Fix online testing environment.
 - `2022/10/01`: Link online testing environment.
 - `2022/10/01`: Fix `eraseRow` and `eraseCol` subcases.
@@ -368,7 +369,7 @@ SmallMatrix(std::initializer_list<std::initializer_list<double>> const& il)
     int row_index{0};
     for (auto const& row : il) {
         if (mIsLargeMatrix) {
-            mHeapData.at(row_index).reserve(mNumCols);
+            mHeapData.at(row_index).resize(mNumCols);
             std::copy(row.begin(), row.end(), mHeapData.at(row_index).begin());
         } else {
             std::transform(row.begin(), row.end(), mStackData.at(row_index).begin(),
