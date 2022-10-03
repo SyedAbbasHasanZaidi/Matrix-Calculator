@@ -4,7 +4,8 @@
 
 Any changes to the specification will be listed here with the date of change.
 
-- `2022/10/03`: Fix 2D initialiser list constructor where it used `reserve` instead of `resize.
+- `2022/10/03`: Added `-fsanitize=address` flag to compile command for extra safety.
+- `2022/10/03`: Fix 2D initialiser list constructor where it used `reserve` instead of `resize`.
 - `2022/10/03`: Fix online testing environment.
 - `2022/10/01`: Link online testing environment.
 - `2022/10/01`: Fix `eraseRow` and `eraseCol` subcases.
@@ -498,7 +499,7 @@ The C++ standard to be used for this assignment is C++14. Please ensure that you
 
 To compile the assignment with the test file:
 ```
-g++ -std=c++14 -Wall -Werror test_small_matrix.cpp SmallMatrix.cpp -o small_matrix
+g++ -std=c++14 -Wall -Werror -fsanitize=address test_small_matrix.cpp SmallMatrix.cpp -o small_matrix
 ```
 
 Executing the binary file will check the entire test suite:
@@ -513,7 +514,7 @@ To check only the progress check methods, add the following flag:
 
 If you wish to write your own `main` function, then you may want to create a new file called `main.cpp`, then compile without `test_small_matrix.cpp`:
 ```
-g++ -std=c++14 -Wall -Werror main.cpp SmallMatrix.cpp -o small_matrix
+g++ -std=c++14 -Wall -Werror -fsanitize=address main.cpp SmallMatrix.cpp -o small_matrix
 ```
 
 > Do not submit your solutions with your `main` function.
