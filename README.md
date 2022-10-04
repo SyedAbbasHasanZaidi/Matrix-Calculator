@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/05`: Give `catch2` option and instruct how to isolate test cases.
 - `2022/10/04`: Removed `-fsanitize=address` flag because it may not be supported by everyone.
 - `2022/10/03`: Added `-fsanitize=address` flag to compile command for extra safety.
 - `2022/10/03`: Fix 2D initialiser list constructor where it used `reserve` instead of `resize`.
@@ -498,9 +499,16 @@ The expected format when printing `SmallMatrix` is:
 
 The C++ standard to be used for this assignment is C++14. Please ensure that your implementation is compilable according to this standard.
 
-To compile the assignment with the test file:
+You may choose to use `test_small_matrix.doctest.cpp` or `test_small_matrix.catch2.cpp. Both test files have exactly the same test cases and assertions.
+
+To compile the assignment with the `doctest` test file:
 ```
-g++ -std=c++14 -Wall -Werror test_small_matrix.cpp SmallMatrix.cpp -o small_matrix
+g++ -std=c++14 -Wall -Werror test_small_matrix.doctest.cpp SmallMatrix.cpp -o small_matrix
+```
+
+To compile the assignment with the `catch2` test file:
+```
+g++ -std=c++14 -Wall -Werror test_small_matrix.catch2.cpp SmallMatrix.cpp -o small_matrix
 ```
 
 Executing the binary file will check the entire test suite:
@@ -508,9 +516,14 @@ Executing the binary file will check the entire test suite:
 ./small_matrix
 ```
 
-To check only the progress check methods, add the following flag:
+To check only the progress check methods with `doctest`, add the following flag:
 ```
 ./small_matrix -ts=progress-check
+```
+
+To check only the progress check methods with `catch2`, add the following argument:
+```
+./small_matrix "[progress-check]"
 ```
 
 If you wish to write your own `main` function, then you may want to create a new file called `main.cpp`, then compile without `test_small_matrix.cpp`:
@@ -519,6 +532,22 @@ g++ -std=c++14 -Wall -Werror main.cpp SmallMatrix.cpp -o small_matrix
 ```
 
 > Do not submit your solutions with your `main` function.
+
+## 5.1 Isolating Tests
+
+For `test_small_matrix.doctest.cpp`, you may want to isolate your tests like so:
+- `-tc` isolates for the test case.
+- `-sc` isolates for the subcase.
+```
+./small_matrix -tc="SmallMatrix(int\, int)" -sc="0 x 0"
+```
+
+For `test_small_matrix.catch2.cpp`, you may want to isolate your tests like so:
+- The first argument isolates for the test case.
+- `-c` isolates for the subcase.
+```
+./small_matrix "SmallMatrix(int\, int)" -c "0 x 0"
+```
 
 ## 6 Testing
 
