@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/05`: Update progress check deadline to be 14/10/2022.
 - `2022/10/05`: Minimise number of tests to avoid memory overflow. Clean up README section 5 and 6.
 - `2022/10/05`: Give `catch2` option and instruct how to isolate test cases.
 - `2022/10/04`: Removed `-fsanitize=address` flag because it may not be supported by everyone.
@@ -619,7 +620,7 @@ You are required to submit to Moodle for both the progress check and final submi
 - `SmallMatrix.hpp`
 - `SmallMatrix.cpp`
 
-The deadline for the progress check submission is 23:55 Friday Week 4 (07/10/2022).
+The deadline for the progress check submission is 23:55 Friday Week 5 (14/10/2022).
 
 The deadline for final submission is 13:00 Monday Week 7 (24/10/2022).
 
