@@ -636,12 +636,11 @@ TEST_CASE("double& operator()(int, int)" * doctest::test_suite("progress-check")
 TEST_CASE("const double& operator()(int, int) const" * doctest::test_suite("progress-check")) {
     auto num_rows = 0;
     auto num_cols = 0;
-    auto m = mtrn2500::SmallMatrix();
 
     SUBCASE("2 x 2") {
         num_rows = 2;
         num_cols = 2;
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {47.8, 35.87},
             {53.5, 42.9},
         });
@@ -654,7 +653,7 @@ TEST_CASE("const double& operator()(int, int) const" * doctest::test_suite("prog
     SUBCASE("12 x 12") {
         num_rows = 12;
         num_cols = 12;
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {45.6, 54.6, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {42.1, 96.3, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -682,35 +681,35 @@ TEST_CASE("const double& operator()(int, int) const" * doctest::test_suite("prog
     SUBCASE("21 x 4, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3), std::out_of_range);
     }
 
     SUBCASE("21 x 4, @ (16, -1), std::out_of_range @ col @ -1") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, -1), std::out_of_range);
     }
 
     SUBCASE("21 x 45, @ (-1, 3), std::out_of_range @ row @ -1") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(-1, 3), std::out_of_range);
     }
 
     SUBCASE("21 x 45, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3), std::out_of_range);
     }
 
     SUBCASE("21 x 45, @ (16, 45), std::out_of_range @ col @ 45") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, 45), std::out_of_range);
     }
 }
@@ -808,34 +807,40 @@ TEST_CASE("std::vector<double*> row(int)") {
 }
 
 TEST_CASE("std::vector<double const*> row(int) const") {
-    auto m = mtrn2500::SmallMatrix();
-    auto expected = std::vector<double>();
-    auto actual = std::vector<double*>();
-
     SUBCASE("3 x 3, row @ 0") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.row(0);
-        expected = {1.2, 3.2, 4.3};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.row(0);
+        auto const expected = std::vector<double>({1.2, 3.2, 4.3});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == doctest::Approx(expected[i]));
+        }
     }
 
     SUBCASE("3 x 3, row @ 1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.row(1);
-        expected = {4.6, 5.4, 6.7};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.row(1);
+        auto const expected = std::vector<double>({4.6, 5.4, 6.7});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == doctest::Approx(expected[i]));
+        }
     }
 
     SUBCASE("3 x 3, row @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.row(-1), std::out_of_range);
     }
 
     SUBCASE("3 x 3, row @ 3, std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.row(3), std::out_of_range);
     }
 
     SUBCASE("5 x 29, row @ 4") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -847,13 +852,19 @@ TEST_CASE("std::vector<double const*> row(int) const") {
             {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
-        actual = m.row(4);
-        expected = {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
-                    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28};
+        auto const actual = m.row(4);
+        auto const expected =
+            std::vector<double>({0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
+                                 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == doctest::Approx(expected[i]));
+        }
     }
 
     SUBCASE("5 x 29, row @ 5, std::out_of_range @ 5") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -866,11 +877,6 @@ TEST_CASE("std::vector<double const*> row(int) const") {
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
         CHECK_THROWS_AS(m.row(5), std::out_of_range);
-    }
-
-    REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
-    for (unsigned i = 0; i < actual.size(); i++) {
-        CHECK(*actual[i] == doctest::Approx(expected[i]));
     }
 }
 
@@ -962,34 +968,40 @@ TEST_CASE("std::vector<double*> col(int)") {
 }
 
 TEST_CASE("std::vector<double const*> col(int) const") {
-    auto m = mtrn2500::SmallMatrix();
-    auto expected = std::vector<double>();
-    auto actual = std::vector<double*>();
-
     SUBCASE("3 x 3, col @ 0") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.col(0);
-        expected = {1.2, 4.6, 7.8};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.col(0);
+        auto const expected = std::vector<double>({1.2, 4.6, 7.8});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == doctest::Approx(expected[i]));
+        }
     }
 
     SUBCASE("3 x 3, col @ 1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.col(1);
-        expected = {3.2, 5.4, 8.3};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.col(1);
+        auto const expected = std::vector<double>({3.2, 5.4, 8.3});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == doctest::Approx(expected[i]));
+        }
     }
 
     SUBCASE("3 x 3, col @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.col(-1), std::out_of_range);
     }
 
     SUBCASE("3 x 3, col @ 3, std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.col(3), std::out_of_range);
     }
 
     SUBCASE("5 x 29, col @ 4") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1001,12 +1013,17 @@ TEST_CASE("std::vector<double const*> col(int) const") {
             {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
-        actual = m.col(4);
-        expected = {4, 4, 4, 4, 4};
+        auto const actual = m.col(4);
+        auto const expected = std::vector<double>({4, 4, 4, 4, 4});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == doctest::Approx(expected[i]));
+        }
     }
 
     SUBCASE("5 x 29, col @ 29, std::out_of_range @ 29") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1019,11 +1036,6 @@ TEST_CASE("std::vector<double const*> col(int) const") {
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
         CHECK_THROWS_AS(m.col(29), std::out_of_range);
-    }
-
-    REQUIRE(actual.size() == expected.size());  // Doesn't continue the subcase if it fails.
-    for (unsigned i = 0; i < actual.size(); i++) {
-        CHECK(*actual[i] == doctest::Approx(expected[i]));
     }
 }
 

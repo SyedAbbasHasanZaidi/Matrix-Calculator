@@ -1179,19 +1179,18 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
 TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     auto num_rows = 0;
     auto num_cols = 0;
-    auto m = mtrn2500::SmallMatrix();
 
     SECTION("0 x 0") {
         num_rows = 0;
         num_cols = 0;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
-        CHECK_THROWS_AS(m(0, 0) = 42, std::out_of_range);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        CHECK_THROWS_AS(m(0, 0), std::out_of_range);
     }
 
     SECTION("1 x 1") {
         num_rows = 1;
         num_cols = 1;
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {432123.534},
         });
         CHECK(m(0, 0) == 432123.534);
@@ -1200,7 +1199,7 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("2 x 2") {
         num_rows = 2;
         num_cols = 2;
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {47.8, 35.87},
             {53.5, 42.9},
         });
@@ -1213,7 +1212,7 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("12 x 12") {
         num_rows = 12;
         num_cols = 12;
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {45.6, 54.6, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {42.1, 96.3, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -1241,7 +1240,7 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("5 x 29") {
         num_rows = 5;
         num_cols = 29;
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {1231, 534, 2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,   16,  17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0,  1,  913, 3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,  14,
@@ -1268,56 +1267,56 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("21 x 4, @ (-1, 3, std::out_of_range @ row @ -1") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(-1, 3), std::out_of_range);
     }
 
     SECTION("21 x 4, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3), std::out_of_range);
     }
 
     SECTION("21 x 4, @ (16, -1), std::out_of_range @ col @ -1") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, -1), std::out_of_range);
     }
 
     SECTION("21 x 4, @ (16, 4), std::out_of_range @ col @ 4") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, 4), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (-1, 3), std::out_of_range @ row @ -1") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(-1, 3), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (16, -1), std::out_of_range @ col @ -1") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, -1), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (16, 45), std::out_of_range @ col @ 45") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, 45), std::out_of_range);
     }
 }
@@ -1500,62 +1499,83 @@ TEST_CASE("std::vector<double*> row(int)") {
 }
 
 TEST_CASE("std::vector<double const*> row(int) const") {
-    auto m = mtrn2500::SmallMatrix();
-    auto expected = std::vector<double>();
-    auto actual = std::vector<double*>();
-
     SECTION("2 x 4, row @ 0") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
-        actual = m.row(0);
-        expected = {1, 2, 4, 6};
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const actual = m.row(0);
+        auto const expected = std::vector<double>({1, 2, 4, 6});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("2 x 4, row @ 1}") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
-        actual = m.row(1);
-        expected = {5, -2, 5, 6};
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const actual = m.row(1);
+        auto const expected = std::vector<double>({5, -2, 5, 6});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("2 x 4, row @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
         CHECK_THROWS_AS(m.row(-1), std::out_of_range);
     }
 
     SECTION("2 x 4, row @ 3 std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
         CHECK_THROWS_AS(m.row(3), std::out_of_range);
     }
 
     SECTION("3 x 3, row @ 0") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.row(0);
-        expected = {1.2, 3.2, 4.3};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.row(0);
+        auto const expected = std::vector<double>({1.2, 3.2, 4.3});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("3 x 3, row @ 1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.row(1);
-        expected = {4.6, 5.4, 6.7};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.row(1);
+        auto const expected = std::vector<double>({4.6, 5.4, 6.7});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("3 x 3, row @ 2") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.row(2);
-        expected = {7.8, 8.3, 9.1};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.row(2);
+        auto const expected = std::vector<double>({7.8, 8.3, 9.1});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("3 x 3, row @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.row(-1), std::out_of_range);
     }
 
     SECTION("3 x 3, row @ 3, std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.row(3), std::out_of_range);
     }
 
     SECTION("16 x 16, row @ 5") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1573,12 +1593,18 @@ TEST_CASE("std::vector<double const*> row(int) const") {
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
         });
-        actual = m.row(5);
-        expected = {123.123, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        auto const actual = m.row(5);
+        auto const expected =
+            std::vector<double>({123.123, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("5 x 29, row @ 4") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1590,13 +1616,19 @@ TEST_CASE("std::vector<double const*> row(int) const") {
             {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
-        actual = m.row(4);
-        expected = {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
-                    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28};
+        auto const actual = m.row(4);
+        auto const expected =
+            std::vector<double>({0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
+                                 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("5 x 29, row @ 5, std::out_of_range @ 5") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1609,11 +1641,6 @@ TEST_CASE("std::vector<double const*> row(int) const") {
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
         CHECK_THROWS_AS(m.row(5), std::out_of_range);
-    }
-
-    REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
-    for (unsigned i = 0; i < actual.size(); i++) {
-        CHECK(*actual[i] == Approx(expected[i]));
     }
 }
 
@@ -1790,62 +1817,83 @@ TEST_CASE("std::vector<double*> col(int)") {
 }
 
 TEST_CASE("std::vector<double const*> col(int) const") {
-    auto m = mtrn2500::SmallMatrix();
-    auto expected = std::vector<double>();
-    auto actual = std::vector<double*>();
-
     SECTION("2 x 4, col @ 0") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
-        actual = m.col(0);
-        expected = {1, 5};
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const actual = m.col(0);
+        auto const expected = std::vector<double>({1, 5});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("2 x 4, col @ 2") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
-        actual = m.col(2);
-        expected = {4, 5};
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const actual = m.col(2);
+        auto const expected = std::vector<double>({4, 5});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("2 x 4, col @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
         CHECK_THROWS_AS(m.col(-1), std::out_of_range);
     }
 
     SECTION("2 x 4, col @ 4, std::out_of_range @ 4") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        auto const m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
         CHECK_THROWS_AS(m.col(4), std::out_of_range);
     }
 
     SECTION("3 x 3, col @ 0") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.col(0);
-        expected = {1.2, 4.6, 7.8};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.col(0);
+        auto const expected = std::vector<double>({1.2, 4.6, 7.8});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("3 x 3, col @ 1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.col(1);
-        expected = {3.2, 5.4, 8.3};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.col(1);
+        auto const expected = std::vector<double>({3.2, 5.4, 8.3});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("3 x 3, col @ 2") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
-        actual = m.col(2);
-        expected = {4.3, 6.7, 9.1};
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const actual = m.col(2);
+        auto const expected = std::vector<double>({4.3, 6.7, 9.1});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("3 x 3, col @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.col(-1), std::out_of_range);
     }
 
     SECTION("3 x 3, col @ 3, std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.col(3), std::out_of_range);
     }
 
     SECTION("16 x 16, col @ 0") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1863,12 +1911,17 @@ TEST_CASE("std::vector<double const*> col(int) const") {
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
         });
-        actual = m.col(0);
-        expected = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        auto const actual = m.col(0);
+        auto const expected = std::vector<double>({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("5 x 29, col @ 4") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1880,12 +1933,17 @@ TEST_CASE("std::vector<double const*> col(int) const") {
             {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
-        actual = m.col(4);
-        expected = {4, 4, 4, 4, 4};
+        auto const actual = m.col(4);
+        auto const expected = std::vector<double>({4, 4, 4, 4, 4});
+
+        REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
+        for (unsigned i = 0; i < actual.size(); i++) {
+            CHECK(*actual[i] == Approx(expected[i]));
+        }
     }
 
     SECTION("5 x 29, col @ 29, std::out_of_range @ 29") {
-        m = mtrn2500::SmallMatrix({
+        auto const m = mtrn2500::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1898,11 +1956,6 @@ TEST_CASE("std::vector<double const*> col(int) const") {
              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
         });
         CHECK_THROWS_AS(m.col(29), std::out_of_range);
-    }
-
-    REQUIRE(actual.size() == expected.size());  // Doesn't continue the SECTION if it fails.
-    for (unsigned i = 0; i < actual.size(); i++) {
-        CHECK(*actual[i] == Approx(expected[i]));
     }
 }
 
@@ -2896,7 +2949,7 @@ TEST_CASE("void eraseCol(int)") {
             {15.2, 15.2, 15.2, 15.2, 15.2, 15.2, 15.2, 15.2, 15.2, 15.2, 15.2},
         };
         m.eraseCol(4);
-        m.eraseCol(5);
+        m.eraseCol(4);
         e = {
             {0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2},
             {1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2},

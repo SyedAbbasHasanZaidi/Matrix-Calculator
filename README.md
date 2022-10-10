@@ -4,6 +4,9 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/10`: Fix the range of `insertRow` and `insertCol`.
+- `2022/10/10`: Fixed `eraseCol` and `const` method tests.
+- `2022/10/10`: Correct `operator!=` description.
 - `2022/10/05`: Update progress check deadline to be 14/10/2022.
 - `2022/10/05`: Minimise number of tests to avoid memory overflow. Clean up README section 5 and 6.
 - `2022/10/05`: Give `catch2` option and instruct how to isolate test cases.
@@ -215,14 +218,14 @@ s.resize(100, 100);</pre></code></td>
         <td>Inserts a row at the specified row index. If the number of columns in the matrix is zero, then the matrix is resized to match the size of the specified row vector.</td>
         <td><pre><code>SmallMatrix m(2, 4);
 s.insertRow(0, {1, 2, 3, 4});</pre></code></td>
-        <td>Throws <code>out_of_range</code> if the specified row index is outside the range <code>[0, max_row)</code>.<br><br>Throws <code>invalid_argument</code> if the size of the specified vector is not equal to the number of columns in the matrix.</td>
+        <td>Throws <code>out_of_range</code> if the specified row index is outside the range <code>[0, max_row]</code>.<br><br>Throws <code>invalid_argument</code> if the size of the specified vector is not equal to the number of columns in the matrix.</td>
     </tr>
     <tr>
         <td><code>void insertCol(int, std::vector<double> const&)</code></td>
         <td>Inserts a column at the specified column index. If the number of rows in the matrix is zero, then the matrix is resized to match the size of the specified column vector.</td>
         <td><pre><code>SmallMatrix m(3, 2);
 s.insertCol(2, {1, 2, 3});</pre></code></td>
-        <td>Throws <code>out_of_range</code> if the specified column index is outside the range <code>[0, max_col)</code>.<br><br>Throws <code>invalid_argument</code> if the size of the specified vector is not equal to the number of rows in the matrix.</td>
+        <td>Throws <code>out_of_range</code> if the specified column index is outside the range <code>[0, max_col]</code>.<br><br>Throws <code>invalid_argument</code> if the size of the specified vector is not equal to the number of rows in the matrix.</td>
     </tr>
     <tr>
         <td><code>void eraseRow(int)</code></td>
@@ -248,7 +251,7 @@ m1 == m2;</pre></code></td>
     </tr>
     <tr>
         <td><code>friend bool operator!=(SmallMatrix const&, SmallMatrix const&)</code></td>
-        <td>Returns false if any of the elements in the left-hand side matrix are not equal to its positionally-corresponding element in the right-hand side matrix. Otherwise, true.</td>
+        <td>Returns false if any of the elements in the left-hand side matrix are equal to its positionally-corresponding element in the right-hand side matrix. Otherwise, true.</td>
         <td><pre><code>SmallMatrix m1({{1, 2, 3}, {4, 5, 7}});
 SmallMatrix m2({{1, 2, 3}, {4, 5, 6}});
 m1 != m2;</pre></code></td>
