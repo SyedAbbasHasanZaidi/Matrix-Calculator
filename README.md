@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/11`: Reclarify `operator!=`.
 - `2022/10/10`: Fix the range of `insertRow` and `insertCol`.
 - `2022/10/10`: Fixed `eraseCol` and `const` method tests.
 - `2022/10/10`: Correct `operator!=` description.
@@ -251,7 +252,7 @@ m1 == m2;</pre></code></td>
     </tr>
     <tr>
         <td><code>friend bool operator!=(SmallMatrix const&, SmallMatrix const&)</code></td>
-        <td>Returns false if any of the elements in the left-hand side matrix are equal to its positionally-corresponding element in the right-hand side matrix. Otherwise, true.</td>
+        <td>Returns true if any of the elements in the left-hand side matrix are not equal to its positionally-corresponding element in the right-hand side matrix. Otherwise, false.</td>
         <td><pre><code>SmallMatrix m1({{1, 2, 3}, {4, 5, 7}});
 SmallMatrix m2({{1, 2, 3}, {4, 5, 6}});
 m1 != m2;</pre></code></td>
