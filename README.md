@@ -4,6 +4,7 @@
 
 Any changes to the specification will be listed here with the date of change.
 
+- `2022/10/19`: Fix example usage for `operator+=` and `operator-=`. Remove `const` for `operator<<` in description.
 - `2022/10/11`: Reclarify `operator!=`.
 - `2022/10/10`: Fix the range of `insertRow` and `insertCol`.
 - `2022/10/10`: Fixed `eraseCol` and `const` method tests.
@@ -299,15 +300,17 @@ auto r = m * 42.2;</pre></code></td>
     <tr>
         <td><code>SmallMatrix& operator+=(SmallMatrix const&)</code></td>
         <td>Returns *this after the element-wise addition of *this and the specified matrix. This operation is equivalent to <code>*this = *this + m</code>.</td>
-        <td><pre><code>SmallMatrix m({{1, 2}, {3, 4}, {5, 6}});
-auto m += 42.2;</pre></code></td>
+        <td><pre><code>SmallMatrix m1({{1, 2}, {3, 4}, {5, 6}});
+SmallMatrix m2({{1, 1}, {1, 1}, {, 1}});
+auto m1 += m2;</pre></code></td>
         <td>Throws <code>invalid_argument</code> if the number of rows and columns of *this is not equal to the number of rows and columns of the specified matrix respectively.</td>
     </tr>
     <tr>
         <td><code>SmallMatrix& operator-=(SmallMatrix const&)</code></td>
         <td>Returns *this after the element-wise subtraction of *this and the specified matrix. This operation is equivalent to <code>*this = *this - m</code>.</td>
-        <td><pre><code>SmallMatrix m({{1, 2}, {3, 4}, {5, 6}});
-auto m -= 42.2;</pre></code></td>
+        <td><pre><code>SmallMatrix m1({{1, 2}, {3, 4}, {5, 6}});
+SmallMatrix m2({{1, 1}, {1, 1}, {, 1}});
+auto m1 -= m2;</pre></code></td>
         <td>Throws <code>invalid_argument</code> if the number of rows and columns of *this is not equal to the number of rows and columns of the specified matrix respectively.</td>
     </tr>
     <tr>
@@ -333,7 +336,7 @@ auto r = transpose(m);</pre></code></td>
         <td>None.</td>
     </tr>
     <tr>
-        <td><code>friend std::ostream& operator&lt;&lt;(std::ostream&, SmallMatrix const&) const</code></td>
+        <td><code>friend std::ostream& operator&lt;&lt;(std::ostream&, SmallMatrix const&)</code></td>
         <td>Writes the contents of the matrix to the output stream.</td>
         <td><pre><code>SmallMatrix m({{1, 2, 3}, {4, 5, 6}});
 std::cout &lt;&lt; m;</pre></code></td>
