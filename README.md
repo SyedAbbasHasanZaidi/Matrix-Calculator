@@ -1,43 +1,6 @@
 # MTRN2500 - Assignment 1 (Small Matrix)
 
-## 1 Changes
-
-Any changes to the specification will be listed here with the date of change.
-
-- `2022/10/19`: Fix example usage for `operator+=` and `operator-=`. Remove `const` for `operator<<` in description.
-- `2022/10/11`: Reclarify `operator!=`.
-- `2022/10/10`: Fix the range of `insertRow` and `insertCol`.
-- `2022/10/10`: Fixed `eraseCol` and `const` method tests.
-- `2022/10/10`: Correct `operator!=` description.
-- `2022/10/05`: Update progress check deadline to be 14/10/2022.
-- `2022/10/05`: Minimise number of tests to avoid memory overflow. Clean up README section 5 and 6.
-- `2022/10/05`: Give `catch2` option and instruct how to isolate test cases.
-- `2022/10/04`: Removed `-fsanitize=address` flag because it may not be supported by everyone.
-- `2022/10/03`: Added `-fsanitize=address` flag to compile command for extra safety.
-- `2022/10/03`: Fix 2D initialiser list constructor where it used `reserve` instead of `resize`.
-- `2022/10/03`: Fix online testing environment.
-- `2022/10/01`: Link online testing environment.
-- `2022/10/01`: Fix `eraseRow` and `eraseCol` subcases.
-- `2022/10/01`: Clarify expected format for `operator<<()`.
-- `2022/10/01`: Define `SmallMatrix` methods with dummy return values in `SmallMatrix.cpp`.
-- `2022/09/28`: Fix link to style guide and remove friend function style requirement.
-- `2022/09/27`: Fixed comparison of `int` and `unsigned` for `gcc` compiler.
-- `2022/09/27`: Changed all references of `double const&` to `double`.
-
-## 2 Learning Outcomes
-
-The purpose of this assignment is to consolidate the C++ concepts taught in weeks 1, 2, 3, and 4. The main learning outcomes are:
-- Appreciate the effectiveness of classes in encapsulating behaviour.
-- Understand the different types of constructors, how they are implemented, and used.
-- Appreciate operator overloading, and understand how these functions are implemented and used.
-- Know the difference between `const` and non-`const` methods, how they are implemented, and their significance.
-- Know the difference between stack and heap memory, the advantages and disadvantages of both, and how `std::array` and `std::vector` are allocated under-the-hood.
-- Familiar with the usage and documentation of `std::array` and `std::vector`.
-- Appreciate STL algorithms and their appropriateness over for loops.
-- Know how to write exceptions and appreciate their effectiveness in writing correct code.
-- Introduced to a simple testing framework to encourage mechatronics students to be methodical and efficient in testing correctness.
-
-## 3 Task
+## 1 Task
 
 A `SmallMatrix` is a small-storage-optimised matrix whose elements are allocated on the stack if the number of elements is less than 144 allowing fast read/write speeds. If the number of elements is 144 or greater, then its contents are allocated on the heap. Accessing heap memory is slower than accessing stack memory due to the extra level of indirection of accessing heap-allocated data by first looking up its address on the stack.
 
@@ -47,9 +10,9 @@ The task is to implement a `SmallMatrix` class as required by the given [specifi
 
 The `SmallMatrix` interface is provided in `SmallMatrix.hpp`. You are also given `SmallMatrix.cpp` for implementation and `test_small_matrix.cpp` for a simple testing suite. You may make modifications to each of these files as you see fit and according to the specification.
 
-## 4 Specification
+## 2 Specification
 
-### 4.1 Internal Representation
+### 2.1 Internal Representation
 
 You are provided the following private member variables:
 ```cpp
@@ -72,7 +35,7 @@ std::array<double, mSmallSize> mStackData;
 std::vector<double> mHeapData;
 ```
 
-### 4.2 Public Interface
+### 2.2 Public Interface
 
 The specification for `SmallMatrix` is summarised below:
 
@@ -342,88 +305,32 @@ auto r = transpose(m);</pre></code></td>
 std::cout &lt;&lt; m;</pre></code></td>
         <td>None.</td>
     </tr>
+    <tr>
+        <td><code>friend SmallMatrix Inverse(SmallMatrix const&)</code></td>
+        <td>Returns a inverse matrix</td>
+        <td><pre><code>SmallMatrix m1({4, 7}, {2, 6}});
+auto m2 = inverse(m1);
+SmallMatrix m3({{0.6, -0.7}, {-0.2, 0.4}});
+(m2==m3) == true;</pre></code></td>
+        <td>Throws <code>invalid_argument</code> if the matrix does not have an inverse.</td>
+    </tr>
 </table>
 
-### 4.3 Throwing Exceptions
+### 2.3 Throwing Exceptions
 
 Only the type of exception thrown is checked in the testing suite. The error message does not matter, although you should write a detailed message anyways.
 
-### 4.4 Floating Point Number Comparison
+### 2.4 Floating Point Number Comparison
 
 Be careful when comparing floating point numbers. Two floating point numbers that may look equal, may not be equal at all due to precision and rounding.
 
 A good epsilon would be `0.0000001`.
 
-### 4.5 Invalidation after Move
+### 2.5 Invalidation after Move
 
 Objects after being moved need to be *invalidated* which we define as zero, empty, or null.
 
-### 4.6 Initialiser List Constructor
-
-This method is done for you as an example.
-
-<details><summary>2D version</summary><p>
-
-```cpp
-SmallMatrix(std::initializer_list<std::initializer_list<double>> const& il)
-    : mNumRows(il.size()), mNumCols(il.begin() == il.end() ? 0 : il.begin()->size()),
-        mIsLargeMatrix(mNumRows * mNumCols >= mSmallSize) {
-    if (std::adjacent_find(il.begin(), il.end(), [](auto const& lhs, auto const& rhs) {
-            return lhs.size() != rhs.size();
-        }) != il.end()) {
-        throw std::invalid_argument("Rows have different sizes.");
-    }
-
-    if (mIsLargeMatrix) {
-        mHeapData.resize(mNumRows);
-    }
-
-    int row_index{0};
-    for (auto const& row : il) {
-        if (mIsLargeMatrix) {
-            mHeapData.at(row_index).resize(mNumCols);
-            std::copy(row.begin(), row.end(), mHeapData.at(row_index).begin());
-        } else {
-            std::transform(row.begin(), row.end(), mStackData.at(row_index).begin(),
-                            [](auto const& e) { return e; });
-        }
-        row_index++;
-    }
-}
-```
-
-</p></details>
-
-<details><summary>1D version</summary><p>
-
-```cpp
-SmallMatrix(std::initializer_list<std::initializer_list<double>> const& il)
-    : mNumRows(il.size()), mNumCols(il.begin() == il.end() ? 0 : il.begin()->size()),
-        mIsLargeMatrix(mNumRows * mNumCols >= mSmallSize) {
-    if (std::adjacent_find(il.begin(), il.end(), [](auto const& lhs, auto const& rhs) {
-            return lhs.size() != rhs.size();
-        }) != il.end()) {
-        throw std::invalid_argument("Rows have different sizes.");
-    }
-
-    if (mIsLargeMatrix) {
-        mHeapData.reserve(mNumRows * mNumCols);
-    }
-
-    auto it = mStackData.begin();
-    for (auto const& row : il) {
-        if (mIsLargeMatrix) {
-            std::copy(row.begin(), row.end(), std::back_inserter(mHeapData));
-        } else {
-            it = std::transform(row.begin(), row.end(), it, [](auto const& e) { return e; });
-        }
-    }
-}
-```
-
-</p></details>
-
-### 4.7 Matrix Multiplication
+### 2.6 Matrix Multiplication
 
 [Matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication) is defined as:
 
@@ -469,15 +376,11 @@ a_{m1}b_{11} + \dots + a_{mn}b_{n1} & a_{m1}b_{12} + \dots + a_{mn}b_{n2} & \dot
 
 $$ -->
 
-### 4.8 2D Matrix Representation
+### 2.7 2D Matrix Representation
 
 The provided 2D matrix size is effectively `144 x 144`. This design decision was to handle cases such as `144 x 0` and `0 x 144`. It is possible to allocate more than 144 elements on the stack, however this will not be allowed.
 
-### 4.9 Hard Coding
-
-There will be no hard coding. Such methods implementing hard coded solutions will receive zero for that method.
-
-### 4.10 Insertion Operator
+### 2.8 Insertion Operator
 
 The expected format when printing `SmallMatrix` is:
 - A set of `[]` brackets to denote the matrix itself.
@@ -504,7 +407,7 @@ The expected format when printing `SmallMatrix` is:
     [ 1.1 2.2 3.3 ]
     ```
 
-## 5 Compiling
+## 3 Compiling
 
 The C++ standard to be used for this assignment is C++14. Please ensure that your implementation is compilable according to this standard.
 
@@ -525,9 +428,7 @@ If you wish to write your own `main` function, then you may want to create a new
 g++ -std=c++14 -Wall -Werror main.cpp SmallMatrix.cpp -o small_matrix
 ```
 
-> Do not submit your solutions with your `main` function.
-
-## 6 Testing
+## 4 Testing
 
 `catch2` and `doctest` are two different test suites that are provided. You may choose one or the other or both based on preference.
 
@@ -564,83 +465,3 @@ For `test_small_matrix.catch2.cpp`, you may want to isolate your tests like so:
 ./small_matrix "SmallMatrix(int\, int)" -c "0 x 0"
 ```
 
-## 7 Version Control
-
-We will not be enforcing this but it will be in your best interest to use a version control software like git with a git cloud service like GitHub or GitLab. You will be able to recover your work in case you lose it all (in some freak computer accident) or you want to find an old revision of your work.
-
-## 8 Marking Criteria
-
-The assignment is worth 22% of the total course mark.
-
-<table>
-    <tr>
-        <th>Criteria</th>
-        <th>Weight</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>Correctness</td>
-        <td>50%</td>
-        <td>Your solution will be automarked against our full test suite. If your solution does not compile, then you risk zero for correctness.</td>
-    </tr>
-    <tr>
-        <td>C++ Style</td>
-        <td>35%</td>
-        <td>There will be marks for using C++ style such as using STL algorithms, avoiding C-style code, invalidating resources after move, etc.</td>
-    </tr>
-    <tr>
-        <td>General Style</td>
-        <td>10%</td>
-        <td>Generally good programming practices such as no code duplication, consistent indentation and braces, consistent naming style, meaningful function and variable names, etc.</td>
-    </tr>
-    <tr>
-        <td>Progress Check</td>
-        <td>5%</td>
-        <td>The progress check is to ensure that you are making good pace with this assignment as well as have completed the methods that the full test suite is dependent on being correct. The methods are:
-            <ul>
-                <li><code>SmallMatrix()</code></li>
-                <li><code>SmallMatrix(int, int)</code></li>
-                <li><code>SmallMatrix(int, int, double)</code></li>
-                <li><s><code>SmallMatrix(std::initializer_list&lt;std::initializer_list&lt;double&gt;&gt; const&)</code></s>GIVEN</li>
-                <li><code>SmallMatrix(SmallMatrix const&)</code></li>
-                <li><code>SmallMatrix(SmallMatrix&&)</code></li>
-                <li><code>SmallMatrix& operator=(SmallMatrix const&)</code></li>
-                <li><code>SmallMatrix& operator=(SmallMatrix&&)</code></li>
-                <li><code>double& operator()(int, int)</code></li>
-                <li><code>const double& operator()(int, int)</code></li>
-                <li><code>std::pair<int, int> size() const</code></li>
-                <li><code>bool isSmall() const</code></li>
-                <li><code>friend bool operator==(SmallMatrix const&, SmallMatrix const&)</code></li>
-                <li><code>friend bool operator!=(SmallMatrix const&, SmallMatrix const&)</code></li>
-            </ul>
-        </td>
-    </tr>
-</table>
-
-Please refer to the [style guide](https://gitlab.com/dennuguyen/mtrn2500-2022t3/-/blob/master/style-guide.md) for a more complete set of programming practices of what to do and not to do.
-
-**MacOS**: Please check that your solution compiles with at least `x86-64 gcc 5.1` and `-std=c++14` on [godbolt.org](https://godbolt.org/z/Wzd61ncKe). This is to ensure that your solution will compile with our backend.
-
-## 9 Submission
-
-You are required to submit to Moodle for both the progress check and final submission:
-- `SmallMatrix.hpp`
-- `SmallMatrix.cpp`
-
-The deadline for the progress check submission is 23:55 Friday Week 5 (14/10/2022).
-
-The deadline for final submission is 13:00 Monday Week 7 (24/10/2022).
-
-Submissions after the scheduled deadlines will incur a 5% penalty on your actual mark every 24 hours for 120 hours. After 120 hours, the submission will no longer be accepted.
-
-## 10 Plagiarism
-
-Don't do it.
-
-This assignment is an in-depth assignment i.e. there are many many ways to implement it. Therefore, plagiarised solutions are much easier to catch.
-
-If you are caught plagiarising or assisting plagiarism then you will be given 0 for assignment 1.
-
-In extreme circumstances, you may receive 0 for MTRN2500.
-
-For more information, please read [UNSW's plagiarism policy](https://www.student.unsw.edu.au/plagiarism).
