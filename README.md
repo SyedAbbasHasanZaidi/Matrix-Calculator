@@ -6,7 +6,7 @@ A `SmallMatrix` is a small-storage-optimised matrix whose elements are allocated
 
 When the size of the `SmallMatrix` increases above its small-size threshold, it is able to switch from being stack-allocated to heap-allocated. However, when the size of the `SmallMatrix` decreases below its small-size threshold, it **remains** heap-allocated as there are no real-life performance benefits to be gained from switching back-and-forth between memory spaces.
 
-The task is to implement a `SmallMatrix` class as required by the given [specification](#specification). The interface and behaviour of `SmallMatrix` is the same regardless if it is stack-allocated or heap-allocated.
+ `SmallMatrix` class has been implemented as required by the given [specification](#specification). The interface and behaviour of `SmallMatrix` is the same regardless if it is stack-allocated or heap-allocated.
 
 The `SmallMatrix` interface is provided in `SmallMatrix.hpp`. You are also given `SmallMatrix.cpp` for implementation and `test_small_matrix.cpp` for a simple testing suite. You may make modifications to each of these files as you see fit and according to the specification.
 
@@ -14,7 +14,7 @@ The `SmallMatrix` interface is provided in `SmallMatrix.hpp`. You are also given
 
 ### 2.1 Internal Representation
 
-You are provided the following private member variables:
+The following private member variables:
 ```cpp
 int mNumRows;
 int mNumCols;
@@ -23,18 +23,6 @@ static constexpr int mSmallSize = 144;
 std::array<std::array<double, mSmallSize>, mSmallSize> mStackData;
 std::vector<std::vector<double>> mHeapData;
 ```
-
-You are free to change any of the above (including names and datatypes) except:
-- You must **not** change the datatype and value of `mSmallSize`.
-- Your stack-allocated representation **must** use a `std::array`.
-- Your heap-allocated representation **must** use a `std::vector`.
-
-You are free to pursue this alternative internal matrix representation however note that this is a **challenge** (there are no bonus marks for this):
-```cpp
-std::array<double, mSmallSize> mStackData;
-std::vector<double> mHeapData;
-```
-
 ### 2.2 Public Interface
 
 The specification for `SmallMatrix` is summarised below:
@@ -318,7 +306,7 @@ SmallMatrix m3({{0.6, -0.7}, {-0.2, 0.4}});
 
 ### 2.3 Throwing Exceptions
 
-Only the type of exception thrown is checked in the testing suite. The error message does not matter, although you should write a detailed message anyways.
+Only the type of exception thrown is checked in the testing suite. 
 
 ### 2.4 Floating Point Number Comparison
 
@@ -409,23 +397,18 @@ The expected format when printing `SmallMatrix` is:
 
 ## 3 Compiling
 
-The C++ standard to be used for this assignment is C++14. Please ensure that your implementation is compilable according to this standard.
+The C++ standard to be used for this project is C++14.
 
-You may choose to use `test_small_matrix.doctest.cpp` or `test_small_matrix.catch2.cpp`. Both test files have exactly the same test cases and assertions.
+Both `test_small_matrix.doctest.cpp` or `test_small_matrix.catch2.cpp` are provided with both test files have exactly the same test cases and assertions.
 
 To compile the assignment with the `doctest` test file:
 ```
 g++ -std=c++14 -Wall -Werror test_small_matrix.doctest.cpp SmallMatrix.cpp -o small_matrix
 ```
 
-To compile the assignment with the `catch2` test file:
+To compile the project with the `catch2` test file:
 ```
 g++ -std=c++14 -Wall -Werror test_small_matrix.catch2.cpp SmallMatrix.cpp -o small_matrix
-```
-
-If you wish to write your own `main` function, then you may want to create a new file called `main.cpp`, then compile without `test_small_matrix.cpp`:
-```
-g++ -std=c++14 -Wall -Werror main.cpp SmallMatrix.cpp -o small_matrix
 ```
 
 ## 4 Testing
@@ -439,16 +422,6 @@ A full version of the tests is provided in `test_small_matrix.catch2.full.cpp` a
 Executing the binary file will check the entire test suite:
 ```
 ./small_matrix
-```
-
-To check only the progress check methods with `doctest`, add the following flag:
-```
-./small_matrix -ts=progress-check
-```
-
-To check only the progress check methods with `catch2`, add the following argument:
-```
-./small_matrix "[progress-check]"
 ```
 
 For `test_small_matrix.doctest.cpp`, you may want to isolate your tests like so:
