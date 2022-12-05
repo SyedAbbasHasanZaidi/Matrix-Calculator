@@ -21,7 +21,7 @@ bool is_it_small(int num_rows, int num_cols) { return num_rows * num_cols < smal
 
 TEST_CASE("SmallMatrix()", "[progress-check]") {
     SECTION("0 x 0") {
-        auto m = mtrn2500::SmallMatrix();
+        auto m = MatrixCal::SmallMatrix();
         CHECK(m.size() == std::make_pair(0, 0));
         CHECK(m.isSmall() == true);
     }
@@ -34,7 +34,7 @@ TEST_CASE("SmallMatrix(int, int)", "[progress-check]") {
     SECTION("0 x 0") {
         num_rows = 0;
         num_cols = 0;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK(m.isSmall() == true);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
     }
@@ -42,7 +42,7 @@ TEST_CASE("SmallMatrix(int, int)", "[progress-check]") {
     SECTION("6 x 5") {
         num_rows = 6;
         num_cols = 5;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK(m.isSmall() == true);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
         for (int i = 0; i < m.size().first; i++) {
@@ -55,7 +55,7 @@ TEST_CASE("SmallMatrix(int, int)", "[progress-check]") {
     SECTION("12 x 12") {
         num_rows = 12;
         num_cols = 12;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols);
         REQUIRE(m.isSmall() == false);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
         for (int i = 0; i < m.size().first; i++) {
@@ -68,7 +68,7 @@ TEST_CASE("SmallMatrix(int, int)", "[progress-check]") {
     SECTION("5 x 29") {
         num_rows = 5;
         num_cols = 29;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols);
         REQUIRE(m.isSmall() == false);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
         for (int i = 0; i < m.size().first; i++) {
@@ -88,7 +88,7 @@ TEST_CASE("SmallMatrix(int, int, double)", "[progress-check]") {
         num_rows = 0;
         num_cols = 0;
         value = 42.2;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols, value);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols, value);
         CHECK(m.isSmall() == true);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
     }
@@ -97,7 +97,7 @@ TEST_CASE("SmallMatrix(int, int, double)", "[progress-check]") {
         num_rows = 6;
         num_cols = 5;
         value = -0.42;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols, value);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols, value);
         CHECK(m.isSmall() == true);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
         for (int i = 0; i < m.size().first; i++) {
@@ -111,7 +111,7 @@ TEST_CASE("SmallMatrix(int, int, double)", "[progress-check]") {
         num_rows = 12;
         num_cols = 12;
         value = -19.21;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols, value);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols, value);
         REQUIRE(m.isSmall() == false);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
         for (int i = 0; i < m.size().first; i++) {
@@ -125,7 +125,7 @@ TEST_CASE("SmallMatrix(int, int, double)", "[progress-check]") {
         num_rows = 5;
         num_cols = 29;
         value = -19.21;
-        auto m = mtrn2500::SmallMatrix(num_rows, num_cols, value);
+        auto m = MatrixCal::SmallMatrix(num_rows, num_cols, value);
         REQUIRE(m.isSmall() == false);
         CHECK(m.size() == std::make_pair(num_rows, num_cols));
         for (int i = 0; i < m.size().first; i++) {
@@ -139,13 +139,13 @@ TEST_CASE("SmallMatrix(int, int, double)", "[progress-check]") {
 TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> const&)",
           "[progress-check]") {
     SECTION("0 x 0") {
-        auto m = mtrn2500::SmallMatrix({});
+        auto m = MatrixCal::SmallMatrix({});
         CHECK(m.isSmall() == true);
         CHECK(m.size() == std::make_pair(0, 0));
     }
 
     SECTION("3 x 3") {
-        auto m = mtrn2500::SmallMatrix({
+        auto m = MatrixCal::SmallMatrix({
             {1, 2, 3},
             {4, 5, 6},
             {7, 8, 9},
@@ -161,7 +161,7 @@ TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> cons
     }
 
     SECTION("5 x 6, malformed row @ 1") {
-        CHECK_THROWS_AS(mtrn2500::SmallMatrix({
+        CHECK_THROWS_AS(MatrixCal::SmallMatrix({
                             {1, 2, 3, 4, 5, 6},
                             {1, 2, 3, 4, 5, 6, 7},
                             {1, 2, 3, 4, 5, 6},
@@ -172,7 +172,7 @@ TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> cons
     }
 
     SECTION("5 x 7, malformed row @ 4") {
-        CHECK_THROWS_AS(mtrn2500::SmallMatrix({
+        CHECK_THROWS_AS(MatrixCal::SmallMatrix({
                             {1, 2, 3, 4, 5, 6},
                             {1, 2, 3, 4, 5, 6},
                             {1, 2, 3, 4, 5, 6},
@@ -183,7 +183,7 @@ TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> cons
     }
 
     SECTION("12 x 12") {
-        auto m = mtrn2500::SmallMatrix({
+        auto m = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -207,7 +207,7 @@ TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> cons
     }
 
     SECTION("12 x 12, malformed row @ 2") {
-        CHECK_THROWS_AS(mtrn2500::SmallMatrix({
+        CHECK_THROWS_AS(MatrixCal::SmallMatrix({
                             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
                             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
                             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
@@ -225,7 +225,7 @@ TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> cons
     }
 
     SECTION("11 x 13, malformed row @ 11") {
-        CHECK_THROWS_AS(mtrn2500::SmallMatrix({
+        CHECK_THROWS_AS(MatrixCal::SmallMatrix({
                             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
                             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
                             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
@@ -245,7 +245,7 @@ TEST_CASE("SmallMatrix(std::initializer_list<std::initializer_list<double>> cons
 
 TEST_CASE("SmallMatrix(SmallMatrix const&)", "[progress-check]") {
     SECTION("3 x 3") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {1, 2, 3},
             {4, 5, 6},
             {7, 8, 9},
@@ -269,7 +269,7 @@ TEST_CASE("SmallMatrix(SmallMatrix const&)", "[progress-check]") {
     }
 
     SECTION("12 x 12") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -303,7 +303,7 @@ TEST_CASE("SmallMatrix(SmallMatrix const&)", "[progress-check]") {
 
 TEST_CASE("SmallMatrix(SmallMatrix&&)", "[progress-check]") {
     SECTION("3 x 3") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {1, 2, 3},
             {4, 5, 6},
             {7, 8, 9},
@@ -332,7 +332,7 @@ TEST_CASE("SmallMatrix(SmallMatrix&&)", "[progress-check]") {
     }
 
     SECTION("12 x 12") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -369,10 +369,10 @@ TEST_CASE("SmallMatrix(SmallMatrix&&)", "[progress-check]") {
 }
 
 TEST_CASE("SmallMatrix& operator=(SmallMatrix const&)", "[progress-check]") {
-    auto m2 = mtrn2500::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {1, 2, 3},
             {4, 5, 6},
             {7, 8, 9},
@@ -396,7 +396,7 @@ TEST_CASE("SmallMatrix& operator=(SmallMatrix const&)", "[progress-check]") {
     }
 
     SECTION("12 x 12") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -429,10 +429,10 @@ TEST_CASE("SmallMatrix& operator=(SmallMatrix const&)", "[progress-check]") {
 }
 
 TEST_CASE("SmallMatrix& operator=(SmallMatrix&&)", "[progress-check]") {
-    auto m2 = mtrn2500::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {1, 2, 3},
             {4, 5, 6},
             {7, 8, 9},
@@ -461,7 +461,7 @@ TEST_CASE("SmallMatrix& operator=(SmallMatrix&&)", "[progress-check]") {
     }
 
     SECTION("12 x 12") {
-        auto m1 = mtrn2500::SmallMatrix({
+        auto m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -500,19 +500,19 @@ TEST_CASE("SmallMatrix& operator=(SmallMatrix&&)", "[progress-check]") {
 TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     auto num_rows = 0;
     auto num_cols = 0;
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("2 x 2") {
         num_rows = 2;
         num_cols = 2;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         m(0, 0) = 47.8;
         m(0, 1) = 35.87;
         m(1, 0) = 53.5;
         m(1, 1) = 42.9;
 
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {47.8, 35.87},
             {53.5, 42.9},
         });
@@ -521,7 +521,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     SECTION("12 x 12") {
         num_rows = 12;
         num_cols = 12;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         for (int i{0}; i < num_rows; i++) {
             for (int j{0}; j < num_cols; j++) {
                 m(i, j) = j;
@@ -537,7 +537,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
         m(11, 7) = 12.32;
         m(11, 11) = 1.000;
 
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {45.6, 54.6, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {42.1, 96.3, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -556,7 +556,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     SECTION("21 x 4, @ (-1, 3, std::out_of_range @ row @ -1") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(-1, 3) = 42.2, std::out_of_range);
         e = m;
     }
@@ -564,7 +564,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     SECTION("21 x 4, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3) = 42.2, std::out_of_range);
         e = m;
     }
@@ -572,7 +572,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     SECTION("21 x 4, @ (16, 4), std::out_of_range @ col @ 4") {
         num_rows = 21;
         num_cols = 4;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, 4) = 42.2, std::out_of_range);
         e = m;
     }
@@ -580,7 +580,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     SECTION("21 x 45, @ (-1, 3), std::out_of_range @ row @ -1") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(-1, 3) = 42.2, std::out_of_range);
         e = m;
     }
@@ -588,7 +588,7 @@ TEST_CASE("double& operator()(int, int)", "[progress-check]") {
     SECTION("21 x 45, @ (16, -1), std::out_of_range @ col @ -1") {
         num_rows = 21;
         num_cols = 45;
-        m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, -1) = 42.2, std::out_of_range);
         e = m;
     }
@@ -603,7 +603,7 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("2 x 2") {
         num_rows = 2;
         num_cols = 2;
-        auto const m = mtrn2500::SmallMatrix({
+        auto const m = MatrixCal::SmallMatrix({
             {47.8, 35.87},
             {53.5, 42.9},
         });
@@ -616,7 +616,7 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("12 x 12") {
         num_rows = 12;
         num_cols = 12;
-        auto const m = mtrn2500::SmallMatrix({
+        auto const m = MatrixCal::SmallMatrix({
             {45.6, 54.6, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {42.1, 96.3, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -644,75 +644,75 @@ TEST_CASE("const double& operator()(int, int) const", "[progress-check]") {
     SECTION("21 x 4, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 4;
-        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3), std::out_of_range);
     }
 
     SECTION("21 x 4, @ (16, -1), std::out_of_range @ col @ -1") {
         num_rows = 21;
         num_cols = 4;
-        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, -1), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (-1, 3), std::out_of_range @ row @ -1") {
         num_rows = 21;
         num_cols = 45;
-        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(-1, 3), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (21, 3), std::out_of_range @ row @ 21") {
         num_rows = 21;
         num_cols = 45;
-        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(21, 3), std::out_of_range);
     }
 
     SECTION("21 x 45, @ (16, 45), std::out_of_range @ col @ 45") {
         num_rows = 21;
         num_cols = 45;
-        auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+        auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
         CHECK_THROWS_AS(m(16, 45), std::out_of_range);
     }
 }
 
 TEST_CASE("std::vector<double*> row(int)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3, row @ 0") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto actual = m.row(0);
         *actual[0] = 9.9;
         *actual[1] = 9.8;
         *actual[2] = 9.7;
-        e = mtrn2500::SmallMatrix({{9.9, 9.8, 9.7}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        e = MatrixCal::SmallMatrix({{9.9, 9.8, 9.7}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
     }
 
     SECTION("3 x 3, row @ 1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto actual = m.row(1);
         *actual[0] = 9.9;
         *actual[1] = 9.8;
         *actual[2] = 9.7;
-        e = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {9.9, 9.8, 9.7}, {7.8, 8.3, 9.1}});
+        e = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {9.9, 9.8, 9.7}, {7.8, 8.3, 9.1}});
     }
 
     SECTION("3 x 3, row @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(*m.row(-1)[0] = 1, std::out_of_range);
         e = m;
     }
 
     SECTION("3 x 3, row @ 3, std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(*m.row(3)[0] = 1, std::out_of_range);
         e = m;
     }
 
     SECTION("5 x 29, row @ 4") {
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -735,7 +735,7 @@ TEST_CASE("std::vector<double*> row(int)") {
         *actual[26] = -2.4;
         *actual[27] = -2.3;
         *actual[28] = -12.3;
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -750,7 +750,7 @@ TEST_CASE("std::vector<double*> row(int)") {
     }
 
     SECTION("5 x 29, row @ 5, std::out_of_range @ 5") {
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -771,7 +771,7 @@ TEST_CASE("std::vector<double*> row(int)") {
 
 TEST_CASE("std::vector<double const*> row(int) const") {
     SECTION("3 x 3, row @ 0") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto const actual = m.row(0);
         auto const expected = std::vector<double>({1.2, 3.2, 4.3});
 
@@ -782,7 +782,7 @@ TEST_CASE("std::vector<double const*> row(int) const") {
     }
 
     SECTION("3 x 3, row @ 1") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto const actual = m.row(1);
         auto const expected = std::vector<double>({4.6, 5.4, 6.7});
 
@@ -793,17 +793,17 @@ TEST_CASE("std::vector<double const*> row(int) const") {
     }
 
     SECTION("3 x 3, row @ -1, std::out_of_range @ -1") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.row(-1), std::out_of_range);
     }
 
     SECTION("3 x 3, row @ 3, std::out_of_range @ 3") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.row(3), std::out_of_range);
     }
 
     SECTION("5 x 29, row @ 4") {
-        auto const m = mtrn2500::SmallMatrix({
+        auto const m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -827,7 +827,7 @@ TEST_CASE("std::vector<double const*> row(int) const") {
     }
 
     SECTION("5 x 29, row @ 5, std::out_of_range @ 5") {
-        auto const m = mtrn2500::SmallMatrix({
+        auto const m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -844,41 +844,41 @@ TEST_CASE("std::vector<double const*> row(int) const") {
 }
 
 TEST_CASE("std::vector<double*> col(int)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3, col @ 0") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto actual = m.col(0);
         *actual[0] = 9.9;
         *actual[1] = 9.8;
         *actual[2] = 9.7;
-        e = mtrn2500::SmallMatrix({{9.9, 3.2, 4.3}, {9.8, 5.4, 6.7}, {9.7, 8.3, 9.1}});
+        e = MatrixCal::SmallMatrix({{9.9, 3.2, 4.3}, {9.8, 5.4, 6.7}, {9.7, 8.3, 9.1}});
     }
 
     SECTION("3 x 3, col @ 1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto actual = m.col(1);
         *actual[0] = 9.9;
         *actual[1] = 9.8;
         *actual[2] = 9.7;
-        e = mtrn2500::SmallMatrix({{1.2, 9.9, 4.3}, {4.6, 9.8, 6.7}, {7.8, 9.7, 9.1}});
+        e = MatrixCal::SmallMatrix({{1.2, 9.9, 4.3}, {4.6, 9.8, 6.7}, {7.8, 9.7, 9.1}});
     }
 
     SECTION("3 x 3, col @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(*m.col(-1)[0] = 1, std::out_of_range);
         e = m;
     }
 
     SECTION("3 x 3, col @ 3, std::out_of_range @ 3") {
-        m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(*m.col(3)[0] = 1, std::out_of_range);
         e = m;
     }
 
     SECTION("5 x 29, col @ 28") {
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -896,7 +896,7 @@ TEST_CASE("std::vector<double*> col(int)") {
         *actual[2] = 753.6;
         *actual[3] = 379.2;
         *actual[4] = 593.8;
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,   14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 321.2},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,   14,
@@ -911,7 +911,7 @@ TEST_CASE("std::vector<double*> col(int)") {
     }
 
     SECTION("5 x 29, col @ 29, std::out_of_range @ 29") {
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -932,7 +932,7 @@ TEST_CASE("std::vector<double*> col(int)") {
 
 TEST_CASE("std::vector<double const*> col(int) const") {
     SECTION("3 x 3, col @ 0") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto const actual = m.col(0);
         auto const expected = std::vector<double>({1.2, 4.6, 7.8});
 
@@ -943,7 +943,7 @@ TEST_CASE("std::vector<double const*> col(int) const") {
     }
 
     SECTION("3 x 3, col @ 1") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         auto const actual = m.col(1);
         auto const expected = std::vector<double>({3.2, 5.4, 8.3});
 
@@ -954,17 +954,17 @@ TEST_CASE("std::vector<double const*> col(int) const") {
     }
 
     SECTION("3 x 3, col @ -1, std::out_of_range @ -1") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.col(-1), std::out_of_range);
     }
 
     SECTION("3 x 3, col @ 3, std::out_of_range @ 3") {
-        auto const m = mtrn2500::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
+        auto const m = MatrixCal::SmallMatrix({{1.2, 3.2, 4.3}, {4.6, 5.4, 6.7}, {7.8, 8.3, 9.1}});
         CHECK_THROWS_AS(m.col(3), std::out_of_range);
     }
 
     SECTION("5 x 29, col @ 4") {
-        auto const m = mtrn2500::SmallMatrix({
+        auto const m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -986,7 +986,7 @@ TEST_CASE("std::vector<double const*> col(int) const") {
     }
 
     SECTION("5 x 29, col @ 29, std::out_of_range @ 29") {
-        auto const m = mtrn2500::SmallMatrix({
+        auto const m = MatrixCal::SmallMatrix({
             {0.1, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
              15,  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28},
             {0.2, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
@@ -1021,7 +1021,7 @@ TEST_CASE("std::pair<int, int> size()", "[progress-check]") {
         num_cols = 42;
     }
 
-    auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+    auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
     CHECK(m.size() == std::make_pair(num_rows, num_cols));
 }
 
@@ -1049,37 +1049,37 @@ TEST_CASE("bool isSmall()", "[progress-check]") {
         num_cols = 5;
     }
 
-    auto const m = mtrn2500::SmallMatrix(num_rows, num_cols);
+    auto const m = MatrixCal::SmallMatrix(num_rows, num_cols);
     CHECK(m.isSmall() == is_it_small(num_rows, num_cols));
 }
 
 TEST_CASE("void resize(int, int)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3 -> 0 x 0") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.resize(0, 0);
-        e = mtrn2500::SmallMatrix();
+        e = MatrixCal::SmallMatrix();
     }
 
     SECTION("3 x 3 -> 2 x 3") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.resize(2, 3);
-        e = mtrn2500::SmallMatrix({{1, 1, 1}, {1, 1, 1}});
+        e = MatrixCal::SmallMatrix({{1, 1, 1}, {1, 1, 1}});
     }
 
     SECTION("3 x 3 -> 6 x 3") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.resize(6, 3);
-        e = mtrn2500::SmallMatrix(
+        e = MatrixCal::SmallMatrix(
             {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
     }
 
     SECTION("3 x 3 -> 6 x 6") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.resize(6, 6);
-        e = mtrn2500::SmallMatrix({{1, 1, 1, 0, 0, 0},
+        e = MatrixCal::SmallMatrix({{1, 1, 1, 0, 0, 0},
                                    {1, 1, 1, 0, 0, 0},
                                    {1, 1, 1, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0},
@@ -1088,17 +1088,17 @@ TEST_CASE("void resize(int, int)") {
     }
 
     SECTION("3 x 3, std::out_of_range)") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         CHECK_THROWS_AS(m.resize(-1, 0), std::out_of_range);
         e = m;
     }
 
     SECTION("3 x 3 -> 12 x 12") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         REQUIRE(m.isSmall() == true);
         m.resize(15, 15);
         REQUIRE(m.isSmall() == false);
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -1118,17 +1118,17 @@ TEST_CASE("void resize(int, int)") {
     }
 
     SECTION("12 x 12 -> 12 x 12") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         m.resize(12, 12);
-        e = mtrn2500::SmallMatrix(12, 12, 1);
+        e = MatrixCal::SmallMatrix(12, 12, 1);
     }
 
     SECTION("11, 16 -> 4, 9") {
-        m = mtrn2500::SmallMatrix(11, 16, 1);
+        m = MatrixCal::SmallMatrix(11, 16, 1);
         REQUIRE(m.isSmall() == false);
         m.resize(4, 9);
         REQUIRE(m.isSmall() == false);
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -1137,7 +1137,7 @@ TEST_CASE("void resize(int, int)") {
     }
 
     SECTION("12 x 12, std::out_of_range)") {
-        m = mtrn2500::SmallMatrix({12, 12, 1});
+        m = MatrixCal::SmallMatrix({12, 12, 1});
         CHECK_THROWS_AS(m.resize(-1, 13), std::out_of_range);
         e = m;
     }
@@ -1146,39 +1146,39 @@ TEST_CASE("void resize(int, int)") {
 }
 
 TEST_CASE("void insertRow(int, std::vector<double> const&)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3 -> insert row @ 0") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.insertRow(0, {0, 0, 0});
-        e = mtrn2500::SmallMatrix({{0, 0, 0}, {1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
+        e = MatrixCal::SmallMatrix({{0, 0, 0}, {1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
     }
 
     SECTION("3 x 3 -> insert row @ 3") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.insertRow(3, {0, 0, 0});
-        e = mtrn2500::SmallMatrix({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}, {0, 0, 0}});
+        e = MatrixCal::SmallMatrix({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}, {0, 0, 0}});
     }
 
     SECTION("3 x 3 -> insert row @ 3, std::invalid_argument @ 4 cols") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         CHECK_THROWS_AS(m.insertRow(3, {0, 0, 0, 0}), std::invalid_argument);
         e = m;
     }
 
     SECTION("3 x 3 -> insert row @ 4, std::out_of_range @ 4") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         CHECK_THROWS_AS(m.insertRow(4, {0, 0, 0}), std::out_of_range);
         e = m;
     }
 
     SECTION("12 x 12 -> insert row @ 12") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         REQUIRE(m.isSmall() == false);
         m.insertRow(12, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
         REQUIRE(m.isSmall() == false);
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -1196,9 +1196,9 @@ TEST_CASE("void insertRow(int, std::vector<double> const&)") {
     }
 
     SECTION("12 x 12 -> insert row @ 0") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         m.insertRow(0, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -1216,14 +1216,14 @@ TEST_CASE("void insertRow(int, std::vector<double> const&)") {
     }
 
     SECTION("12 x 12 -> insert row @ 0, std::invalid_argument @ 13 cols") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         CHECK_THROWS_AS(m.insertRow(0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
                         std::invalid_argument);
         e = m;
     }
 
     SECTION("12 x 12 -> insert row @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         CHECK_THROWS_AS(m.insertRow(-1, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}), std::out_of_range);
         e = m;
     }
@@ -1232,47 +1232,47 @@ TEST_CASE("void insertRow(int, std::vector<double> const&)") {
 }
 
 TEST_CASE("void insertCol(int, std::vector<double> const&)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 0 -> insert col @ [0, 1, 2]") {
-        m = mtrn2500::SmallMatrix(3, 0);
+        m = MatrixCal::SmallMatrix(3, 0);
         m.insertCol(0, {1, 2, 3});
         m.insertCol(1, {4, 5, 6});
         m.insertCol(2, {7, 8, 9});
-        e = mtrn2500::SmallMatrix({{1, 4, 7}, {2, 5, 8}, {3, 6, 9}});
+        e = MatrixCal::SmallMatrix({{1, 4, 7}, {2, 5, 8}, {3, 6, 9}});
     }
 
     SECTION("3 x 3 -> insert col @ 0") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.insertCol(0, {0, 0, 0});
-        e = mtrn2500::SmallMatrix({{{0, 1, 1, 1}, {0, 1, 1, 1}, {0, 1, 1, 1}}});
+        e = MatrixCal::SmallMatrix({{{0, 1, 1, 1}, {0, 1, 1, 1}, {0, 1, 1, 1}}});
     }
 
     SECTION("3 x 3 -> insert col @ 3") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         m.insertCol(3, {0, 0, 0});
-        e = mtrn2500::SmallMatrix({{1, 1, 1, 0}, {1, 1, 1, 0}, {1, 1, 1, 0}});
+        e = MatrixCal::SmallMatrix({{1, 1, 1, 0}, {1, 1, 1, 0}, {1, 1, 1, 0}});
     }
 
     SECTION("3 x 3 -> insert col @ 3, std::invalid_argument @ 4 rows") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         CHECK_THROWS_AS(m.insertCol(3, {0, 0, 0, 0}), std::invalid_argument);
         e = m;
     }
 
     SECTION("3 x 3 -> insert col @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix(3, 3, 1);
+        m = MatrixCal::SmallMatrix(3, 3, 1);
         CHECK_THROWS_AS(m.insertCol(-1, {0, 0, 0}), std::out_of_range);
         e = m;
     }
 
     SECTION("12 x 11 -> insert col @ 0") {
-        m = mtrn2500::SmallMatrix(12, 11, 1);
+        m = MatrixCal::SmallMatrix(12, 11, 1);
         REQUIRE(m.isSmall() == true);
         m.insertCol(0, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
         REQUIRE(m.isSmall() == false);
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -1289,11 +1289,11 @@ TEST_CASE("void insertCol(int, std::vector<double> const&)") {
     }
 
     SECTION("12 x 12 -> insert col @ 12") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         REQUIRE(m.isSmall() == false);
         m.insertCol(12, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
         REQUIRE(m.isSmall() == false);
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
@@ -1310,9 +1310,9 @@ TEST_CASE("void insertCol(int, std::vector<double> const&)") {
     }
 
     SECTION("12 x 12 -> insert col @ 0") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         m.insertCol(0, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -1329,14 +1329,14 @@ TEST_CASE("void insertCol(int, std::vector<double> const&)") {
     }
 
     SECTION("12 x 12 -> insert col @ 0, std::invalid_argument @ 13 rows") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         CHECK_THROWS_AS(m.insertCol(0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
                         std::invalid_argument);
         e = m;
     }
 
     SECTION("12 x 12 -> insert col @ -1, std::out_of_range @ -1") {
-        m = mtrn2500::SmallMatrix(12, 12, 1);
+        m = MatrixCal::SmallMatrix(12, 12, 1);
         CHECK_THROWS_AS(m.insertCol(-1, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}), std::out_of_range);
         e = m;
     }
@@ -1345,8 +1345,8 @@ TEST_CASE("void insertCol(int, std::vector<double> const&)") {
 }
 
 TEST_CASE("void eraseRow(int)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3 -> erase row @ 0") {
         m = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
@@ -1371,7 +1371,7 @@ TEST_CASE("void eraseRow(int)") {
         m.eraseRow(0);
         m.eraseRow(1);
         m.eraseRow(0);
-        e = mtrn2500::SmallMatrix(0, 3);
+        e = MatrixCal::SmallMatrix(0, 3);
     }
 
     SECTION("3 x 3 -> erase row @ -1, std::out_of_range @ -1") {
@@ -1390,8 +1390,8 @@ TEST_CASE("void eraseRow(int)") {
 }
 
 TEST_CASE("void eraseCol(int)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3 -> erase col @ 0") {
         m = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
@@ -1416,7 +1416,7 @@ TEST_CASE("void eraseCol(int)") {
         m.eraseCol(0);
         m.eraseCol(1);
         m.eraseCol(0);
-        e = mtrn2500::SmallMatrix(3, 0);
+        e = MatrixCal::SmallMatrix(3, 0);
     }
 
     SECTION("3 x 3 -> erase col @ -1, std::out_of_range @ -1") {
@@ -1435,24 +1435,24 @@ TEST_CASE("void eraseCol(int)") {
 }
 
 TEST_CASE("friend bool operator==(SmallMatrix const&, SmallMatrix const&)", "[progress-check]") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
     auto is_same = false;
 
     SECTION("2 x 4 == 2 x 4, expect false") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
-        e = mtrn2500::SmallMatrix({{1, 2, 4, 12}, {5, -2, 92, 6}});
+        m = MatrixCal::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        e = MatrixCal::SmallMatrix({{1, 2, 4, 12}, {5, -2, 92, 6}});
         is_same = false;
     }
 
     SECTION("2 x 4 == 2 x 3, expect false") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 8}});
-        e = mtrn2500::SmallMatrix({{1, 2, 4}, {5, -2, 5}});
+        m = MatrixCal::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 8}});
+        e = MatrixCal::SmallMatrix({{1, 2, 4}, {5, -2, 5}});
         is_same = false;
     }
 
     SECTION("16 x 16 == 16 x 16, expect true") {
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1470,7 +1470,7 @@ TEST_CASE("friend bool operator==(SmallMatrix const&, SmallMatrix const&)", "[pr
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1495,24 +1495,24 @@ TEST_CASE("friend bool operator==(SmallMatrix const&, SmallMatrix const&)", "[pr
 }
 
 TEST_CASE("friend bool operator!=(SmallMatrix const&, SmallMatrix const&)", "[progress-check]") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
     auto is_diff = false;
 
     SECTION("2 x 4 != 2 x 4, expect true") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
-        e = mtrn2500::SmallMatrix({{1, 2, 4, 12}, {5, -2, 92, 6}});
+        m = MatrixCal::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 6}});
+        e = MatrixCal::SmallMatrix({{1, 2, 4, 12}, {5, -2, 92, 6}});
         is_diff = true;
     }
 
     SECTION("2 x 4 != 2 x 3, expect true") {
-        m = mtrn2500::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 8}});
-        e = mtrn2500::SmallMatrix({{1, 2, 4}, {5, -2, 5}});
+        m = MatrixCal::SmallMatrix({{1, 2, 4, 6}, {5, -2, 5, 8}});
+        e = MatrixCal::SmallMatrix({{1, 2, 4}, {5, -2, 5}});
         is_diff = true;
     }
 
     SECTION("16 x 16 != 16 x 16, expect true") {
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1530,7 +1530,7 @@ TEST_CASE("friend bool operator!=(SmallMatrix const&, SmallMatrix const&)", "[pr
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1555,19 +1555,19 @@ TEST_CASE("friend bool operator!=(SmallMatrix const&, SmallMatrix const&)", "[pr
 }
 
 TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)") {
-    auto m1 = mtrn2500::SmallMatrix();
-    auto m2 = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m1 = MatrixCal::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("2 x 2") {
-        m1 = mtrn2500::SmallMatrix({{3, 5}, {1, 8}});
-        m2 = mtrn2500::SmallMatrix({{6, 2}, {7, 12}});
-        e = mtrn2500::SmallMatrix({{9, 7}, {8, 20}});
+        m1 = MatrixCal::SmallMatrix({{3, 5}, {1, 8}});
+        m2 = MatrixCal::SmallMatrix({{6, 2}, {7, 12}});
+        e = MatrixCal::SmallMatrix({{9, 7}, {8, 20}});
     }
 
     SECTION("2 x 2, std::invalid_argument @ 2 x 1") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 21);
-        m2 = mtrn2500::SmallMatrix(2, 1, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 21);
+        m2 = MatrixCal::SmallMatrix(2, 1, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1575,8 +1575,8 @@ TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)"
     }
 
     SECTION("2 x 2, std::invalid_argument @ 7 x 2") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 1);
-        m2 = mtrn2500::SmallMatrix(7, 2, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 1);
+        m2 = MatrixCal::SmallMatrix(7, 2, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1584,7 +1584,7 @@ TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)"
     }
 
     SECTION("12 x 12") {
-        m1 = mtrn2500::SmallMatrix({
+        m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -1598,7 +1598,7 @@ TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)"
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        m2 = mtrn2500::SmallMatrix({
+        m2 = MatrixCal::SmallMatrix({
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
@@ -1612,7 +1612,7 @@ TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)"
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {1, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23},
             {2, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23},
             {3, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23},
@@ -1632,19 +1632,19 @@ TEST_CASE("friend SmallMatrix operator+(SmallMatrix const&, SmallMatrix const&)"
 }
 
 TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)") {
-    auto m1 = mtrn2500::SmallMatrix();
-    auto m2 = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m1 = MatrixCal::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("2 x 2") {
-        m1 = mtrn2500::SmallMatrix({{3, 5}, {1, 8}});
-        m2 = mtrn2500::SmallMatrix({{6, 2}, {7, 12}});
-        e = mtrn2500::SmallMatrix({{-3, 3}, {-6, -4}});
+        m1 = MatrixCal::SmallMatrix({{3, 5}, {1, 8}});
+        m2 = MatrixCal::SmallMatrix({{6, 2}, {7, 12}});
+        e = MatrixCal::SmallMatrix({{-3, 3}, {-6, -4}});
     }
 
     SECTION("2 x 2, std::invalid_argument @ 2 x 1") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 21);
-        m2 = mtrn2500::SmallMatrix(2, 1, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 21);
+        m2 = MatrixCal::SmallMatrix(2, 1, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1652,8 +1652,8 @@ TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)"
     }
 
     SECTION("2 x 2, std::invalid_argument @ 7 x 2") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 1);
-        m2 = mtrn2500::SmallMatrix(7, 2, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 1);
+        m2 = MatrixCal::SmallMatrix(7, 2, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1661,7 +1661,7 @@ TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)"
     }
 
     SECTION("12 x 12") {
-        m1 = mtrn2500::SmallMatrix({
+        m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -1675,7 +1675,7 @@ TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)"
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        m2 = mtrn2500::SmallMatrix({
+        m2 = MatrixCal::SmallMatrix({
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
@@ -1689,7 +1689,7 @@ TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)"
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {-1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1},
             {0, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1},
             {1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1},
@@ -1709,29 +1709,29 @@ TEST_CASE("friend SmallMatrix operator-(SmallMatrix const&, SmallMatrix const&)"
 }
 
 TEST_CASE("friend SmallMatrix operator*(SmallMatrix const&, SmallMatrix const&)") {
-    auto m1 = mtrn2500::SmallMatrix();
-    auto m2 = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m1 = MatrixCal::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3 * 3 x 2") {
-        m1 = mtrn2500::SmallMatrix({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
-        m2 = mtrn2500::SmallMatrix({{2, 3}, {4, 5}, {6, 7}});
-        e = mtrn2500::SmallMatrix({{28, 34}, {64, 79}, {100, 124}});
+        m1 = MatrixCal::SmallMatrix({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        m2 = MatrixCal::SmallMatrix({{2, 3}, {4, 5}, {6, 7}});
+        e = MatrixCal::SmallMatrix({{28, 34}, {64, 79}, {100, 124}});
     }
 
     SECTION("1 x 3, std::invalid_argument @ 1 x 1") {
-        m1 = mtrn2500::SmallMatrix({{1, 2, 3}});
-        m2 = mtrn2500::SmallMatrix({{2}});
+        m1 = MatrixCal::SmallMatrix({{1, 2, 3}});
+        m2 = MatrixCal::SmallMatrix({{2}});
         CHECK_THROWS_AS(m1 * m2, std::invalid_argument);
-        m1 = mtrn2500::SmallMatrix();
-        m2 = mtrn2500::SmallMatrix();
-        e = mtrn2500::SmallMatrix();
+        m1 = MatrixCal::SmallMatrix();
+        m2 = MatrixCal::SmallMatrix();
+        e = MatrixCal::SmallMatrix();
     }
 
     SECTION("11 x 12 * 12 x 11") {
-        m1 = mtrn2500::SmallMatrix(11, 12, 3);
-        m2 = mtrn2500::SmallMatrix(12, 11, 2);
-        e = mtrn2500::SmallMatrix(11, 11, 72);
+        m1 = MatrixCal::SmallMatrix(11, 12, 3);
+        m2 = MatrixCal::SmallMatrix(12, 11, 2);
+        e = MatrixCal::SmallMatrix(11, 11, 72);
     }
 
     auto a = m1 * m2;
@@ -1740,20 +1740,20 @@ TEST_CASE("friend SmallMatrix operator*(SmallMatrix const&, SmallMatrix const&)"
 }
 
 TEST_CASE("friend SmallMatrix operator*(double, SmallMatrix const&)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
     double d;
 
     SECTION("-2.1 * 2 x 5") {
         d = -2.1;
-        m = mtrn2500::SmallMatrix({{3, 5, 6, 2, 1}, {1, 4, 7, 1, 8}});
-        e = mtrn2500::SmallMatrix(
+        m = MatrixCal::SmallMatrix({{3, 5, 6, 2, 1}, {1, 4, 7, 1, 8}});
+        e = MatrixCal::SmallMatrix(
             {{-6.3, -10.5, -12.6, -4.2, -2.1}, {-2.1, -8.4, -14.7, -2.1, -16.8}});
     }
 
     SECTION("2.3 * 12 x 12") {
         d = 2.3;
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -1767,7 +1767,7 @@ TEST_CASE("friend SmallMatrix operator*(double, SmallMatrix const&)") {
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
             {2.3, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
             {4.6, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
@@ -1787,20 +1787,20 @@ TEST_CASE("friend SmallMatrix operator*(double, SmallMatrix const&)") {
 }
 
 TEST_CASE("friend SmallMatrix operator*(SmallMatrix const&, double)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
     double d;
 
     SECTION("2 x 5 * -2.1") {
         d = -2.1;
-        m = mtrn2500::SmallMatrix({{3, 5, 6, 2, 1}, {1, 4, 7, 1, 8}});
-        e = mtrn2500::SmallMatrix(
+        m = MatrixCal::SmallMatrix({{3, 5, 6, 2, 1}, {1, 4, 7, 1, 8}});
+        e = MatrixCal::SmallMatrix(
             {{-6.3, -10.5, -12.6, -4.2, -2.1}, {-2.1, -8.4, -14.7, -2.1, -16.8}});
     }
 
     SECTION("12 x 12 * 2.3") {
         d = 2.3;
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -1814,7 +1814,7 @@ TEST_CASE("friend SmallMatrix operator*(SmallMatrix const&, double)") {
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
             {2.3, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
             {4.6, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
@@ -1834,19 +1834,19 @@ TEST_CASE("friend SmallMatrix operator*(SmallMatrix const&, double)") {
 }
 
 TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
-    auto m1 = mtrn2500::SmallMatrix();
-    auto m2 = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m1 = MatrixCal::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("2 x 2") {
-        m1 = mtrn2500::SmallMatrix({{3, 5}, {1, 8}});
-        m2 = mtrn2500::SmallMatrix({{6, 2}, {7, 12}});
-        e = mtrn2500::SmallMatrix({{9, 7}, {8, 20}});
+        m1 = MatrixCal::SmallMatrix({{3, 5}, {1, 8}});
+        m2 = MatrixCal::SmallMatrix({{6, 2}, {7, 12}});
+        e = MatrixCal::SmallMatrix({{9, 7}, {8, 20}});
     }
 
     SECTION("2 x 2, std::invalid_argument @ 2 x 1") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 21);
-        m2 = mtrn2500::SmallMatrix(2, 1, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 21);
+        m2 = MatrixCal::SmallMatrix(2, 1, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1854,8 +1854,8 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
     }
 
     SECTION("2 x 2, std::invalid_argument @ 7 x 2") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 1);
-        m2 = mtrn2500::SmallMatrix(7, 2, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 1);
+        m2 = MatrixCal::SmallMatrix(7, 2, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1863,7 +1863,7 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
     }
 
     SECTION("12 x 12") {
-        m1 = mtrn2500::SmallMatrix({
+        m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -1877,7 +1877,7 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        m2 = mtrn2500::SmallMatrix({
+        m2 = MatrixCal::SmallMatrix({
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
@@ -1891,7 +1891,7 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {1, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23},
             {2, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23},
             {3, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23},
@@ -1908,7 +1908,7 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
     }
 
     SECTION("16 x 16, std::invalid_argument @ 16 x 17") {
-        m1 = mtrn2500::SmallMatrix({
+        m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -1926,7 +1926,7 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
         });
-        m2 = mtrn2500::SmallMatrix({
+        m2 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
@@ -1945,9 +1945,9 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
         });
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
-        m1 = mtrn2500::SmallMatrix();
-        m2 = mtrn2500::SmallMatrix();
-        e = mtrn2500::SmallMatrix();
+        m1 = MatrixCal::SmallMatrix();
+        m2 = MatrixCal::SmallMatrix();
+        e = MatrixCal::SmallMatrix();
     }
 
     m1 += m2;
@@ -1955,25 +1955,25 @@ TEST_CASE("SmallMatrix& operator+=(SmallMatrix const&)") {
 }
 
 TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
-    auto m1 = mtrn2500::SmallMatrix();
-    auto m2 = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m1 = MatrixCal::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("1 x 1") {
-        m1 = mtrn2500::SmallMatrix(1, 1, 42);
-        m2 = mtrn2500::SmallMatrix(1, 1, 56);
-        e = mtrn2500::SmallMatrix(1, 1, -14);
+        m1 = MatrixCal::SmallMatrix(1, 1, 42);
+        m2 = MatrixCal::SmallMatrix(1, 1, 56);
+        e = MatrixCal::SmallMatrix(1, 1, -14);
     }
 
     SECTION("2 x 2") {
-        m1 = mtrn2500::SmallMatrix({{3, 5}, {1, 8}});
-        m2 = mtrn2500::SmallMatrix({{6, 2}, {7, 12}});
-        e = mtrn2500::SmallMatrix({{-3, 3}, {-6, -4}});
+        m1 = MatrixCal::SmallMatrix({{3, 5}, {1, 8}});
+        m2 = MatrixCal::SmallMatrix({{6, 2}, {7, 12}});
+        e = MatrixCal::SmallMatrix({{-3, 3}, {-6, -4}});
     }
 
     SECTION("2 x 2, std::invalid_argument @ 2 x 1") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 21);
-        m2 = mtrn2500::SmallMatrix(2, 1, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 21);
+        m2 = MatrixCal::SmallMatrix(2, 1, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1981,8 +1981,8 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
     }
 
     SECTION("2 x 2, std::invalid_argument @ 7 x 2") {
-        m1 = mtrn2500::SmallMatrix(2, 2, 1);
-        m2 = mtrn2500::SmallMatrix(7, 2, 1);
+        m1 = MatrixCal::SmallMatrix(2, 2, 1);
+        m2 = MatrixCal::SmallMatrix(7, 2, 1);
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
         m1 = {};
         m2 = {};
@@ -1990,7 +1990,7 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
     }
 
     SECTION("12 x 12") {
-        m1 = mtrn2500::SmallMatrix({
+        m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -2004,7 +2004,7 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        m2 = mtrn2500::SmallMatrix({
+        m2 = MatrixCal::SmallMatrix({
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
@@ -2018,7 +2018,7 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
             {1, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {-1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1},
             {0, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1},
             {1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1},
@@ -2035,7 +2035,7 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
     }
 
     SECTION("16 x 16, std::invalid_argument @ 16 x 17") {
-        m1 = mtrn2500::SmallMatrix({
+        m1 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -2053,7 +2053,7 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
         });
-        m2 = mtrn2500::SmallMatrix({
+        m2 = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
@@ -2072,9 +2072,9 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16},
         });
         CHECK_THROWS_AS(m1 + m2, std::invalid_argument);
-        m1 = mtrn2500::SmallMatrix();
-        m2 = mtrn2500::SmallMatrix();
-        e = mtrn2500::SmallMatrix();
+        m1 = MatrixCal::SmallMatrix();
+        m2 = MatrixCal::SmallMatrix();
+        e = MatrixCal::SmallMatrix();
     }
 
     m1 -= m2;
@@ -2082,29 +2082,29 @@ TEST_CASE("SmallMatrix& operator-=(SmallMatrix const&)") {
 }
 
 TEST_CASE("SmallMatrix& operator*=(SmallMatrix const&)") {
-    auto m1 = mtrn2500::SmallMatrix();
-    auto m2 = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m1 = MatrixCal::SmallMatrix();
+    auto m2 = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 3 * 3 x 2") {
-        m1 = mtrn2500::SmallMatrix({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
-        m2 = mtrn2500::SmallMatrix({{2, 3}, {4, 5}, {6, 7}});
-        e = mtrn2500::SmallMatrix({{28, 34}, {64, 79}, {100, 124}});
+        m1 = MatrixCal::SmallMatrix({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        m2 = MatrixCal::SmallMatrix({{2, 3}, {4, 5}, {6, 7}});
+        e = MatrixCal::SmallMatrix({{28, 34}, {64, 79}, {100, 124}});
     }
 
     SECTION("1 x 3, std::invalid_argument @ 1 x 1") {
-        m1 = mtrn2500::SmallMatrix({{1, 2, 3}});
-        m2 = mtrn2500::SmallMatrix({{2}});
+        m1 = MatrixCal::SmallMatrix({{1, 2, 3}});
+        m2 = MatrixCal::SmallMatrix({{2}});
         CHECK_THROWS_AS(m1 * m2, std::invalid_argument);
-        m1 = mtrn2500::SmallMatrix();
-        m2 = mtrn2500::SmallMatrix();
-        e = mtrn2500::SmallMatrix();
+        m1 = MatrixCal::SmallMatrix();
+        m2 = MatrixCal::SmallMatrix();
+        e = MatrixCal::SmallMatrix();
     }
 
     SECTION("11 x 12 * 12 x 11") {
-        m1 = mtrn2500::SmallMatrix(11, 12, 3);
-        m2 = mtrn2500::SmallMatrix(12, 11, 2);
-        e = mtrn2500::SmallMatrix(11, 11, 72);
+        m1 = MatrixCal::SmallMatrix(11, 12, 3);
+        m2 = MatrixCal::SmallMatrix(12, 11, 2);
+        e = MatrixCal::SmallMatrix(11, 11, 72);
     }
 
     m1 *= m2;
@@ -2113,20 +2113,20 @@ TEST_CASE("SmallMatrix& operator*=(SmallMatrix const&)") {
 }
 
 TEST_CASE("SmallMatrix& operator*=(double)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
     double d;
 
     SECTION("2 x 5 *= -2.1") {
         d = -2.1;
-        m = mtrn2500::SmallMatrix({{3, 5, 6, 2, 1}, {1, 4, 7, 1, 8}});
-        e = mtrn2500::SmallMatrix(
+        m = MatrixCal::SmallMatrix({{3, 5, 6, 2, 1}, {1, 4, 7, 1, 8}});
+        e = MatrixCal::SmallMatrix(
             {{-6.3, -10.5, -12.6, -4.2, -2.1}, {-2.1, -8.4, -14.7, -2.1, -16.8}});
     }
 
     SECTION("12 x 12 *= 2.3") {
         d = 2.3;
-        m = mtrn2500::SmallMatrix({
+        m = MatrixCal::SmallMatrix({
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
@@ -2140,7 +2140,7 @@ TEST_CASE("SmallMatrix& operator*=(double)") {
             {10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             {11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
         });
-        e = mtrn2500::SmallMatrix({
+        e = MatrixCal::SmallMatrix({
             {0, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
             {2.3, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
             {4.6, 2.3, 4.6, 6.9, 9.2, 11.5, 13.8, 16.1, 18.4, 20.7, 23, 25.3},
@@ -2161,8 +2161,8 @@ TEST_CASE("SmallMatrix& operator*=(double)") {
 }
 
 TEST_CASE("friend SmallMatrix transpose(SmallMatrix const&)") {
-    auto m = mtrn2500::SmallMatrix();
-    auto e = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
+    auto e = MatrixCal::SmallMatrix();
 
     SECTION("3 x 4 T 4 x 3") {
         m = {{1, 2, 3, 4}, {4, 5, 6, 7}, {7, 8, 9, 10}};
@@ -2203,12 +2203,12 @@ TEST_CASE("friend SmallMatrix transpose(SmallMatrix const&)") {
         };
     }
 
-    auto a = mtrn2500::transpose(m);
+    auto a = MatrixCal::transpose(m);
     CHECK(a == e);
 }
 
 TEST_CASE("friend std::ostream& operator<<(std::ostream&, SmallMatrix const&)") {
-    auto m = mtrn2500::SmallMatrix();
+    auto m = MatrixCal::SmallMatrix();
     auto s = std::string();
 
     SECTION("0 x 0") {

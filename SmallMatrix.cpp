@@ -1,6 +1,6 @@
 #include "SmallMatrix.hpp"
 
-namespace mtrn2500 {
+namespace MatrixCal {
 
 SmallMatrix::SmallMatrix() {}
 
@@ -97,4 +97,6 @@ SmallMatrix transpose(SmallMatrix const& sm) { return {}; }
 
 std::ostream& operator<<(std::ostream& os, SmallMatrix const& sm) { return os; }
 
-}  // namespace mtrn2500
+void pow(SmallMatrix const& m1, int const& indice){}
+
+}  // namespace MatrixCal

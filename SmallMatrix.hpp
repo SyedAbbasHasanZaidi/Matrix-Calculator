@@ -1,7 +1,6 @@
 /**
  * @file SmallMatrix.hpp
- * @author YOUR_NAME (zID)
- * @brief MTRN2500 2022T3 assignment 1 SmallMatrix.
+ * @brief Matrix Calculator header file.
  */
 #pragma once
 
@@ -12,7 +11,7 @@
 #include <utility>
 #include <vector>
 
-namespace mtrn2500 {
+namespace MatrixCal {
 
 class SmallMatrix {
 public:
@@ -354,6 +353,8 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& os, SmallMatrix const& sm);
 
+    friend void pow(SmallMatrix const& m1, int const& ind);
+
 private:
     int mNumRows;
     int mNumCols;
@@ -365,5 +366,6 @@ private:
 
 // Forward declaring.
 SmallMatrix transpose(SmallMatrix const&);
+void pow(SmallMatrix const& m1, int const& ind);
 
-}  // namespace mtrn2500
+}  // namespace MatrixCal
