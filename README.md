@@ -293,15 +293,27 @@ auto r = transpose(m);</pre></code></td>
 std::cout &lt;&lt; m;</pre></code></td>
         <td>None.</td>
     </tr>
-    <tr>
-        <td><code>friend SmallMatrix Inverse(SmallMatrix const&)</code></td>
-        <td>Returns a inverse matrix</td>
-        <td><pre><code>SmallMatrix m1({4, 7}, {2, 6}});
-auto m2 = inverse(m1);
-SmallMatrix m3({{0.6, -0.7}, {-0.2, 0.4}});
-(m2==m3) == true;</pre></code></td>
-        <td>Throws <code>invalid_argument</code> if the matrix does not have an inverse.</td>
-    </tr>
+<tr>
+<td>
+<code>friend void pow(SmallMatrix const&, int const&)</code>
+</td>
+<td>
+Raising/lowering a matrix to a power specified by the given argument of the function.
+</td>
+<td>
+<code>
+auto m1 = SmallMatrix({{1,2},{3,4}});<br>
+auto m2 = SmallMatrix({{7,10},{15,22}});<br>
+m2 == pow(m1,2); //True<br>
+auto m3 = inverse(m1);<br>
+pow(m1,-1);<br>
+m3 == m1; //True <br>
+</code>
+</td>
+<td>
+Throws <code>invalid_argument</code> if the value for power $x < 0$ and given some matrix <code>m1</code> and <code>pos(m1,abs(x))</code> ,the inverse does not exist for <code>m1</code>.
+</td>
+</tr>
 </table>
 
 ### 2.3 Throwing Exceptions
